@@ -2,39 +2,35 @@ package com.tinicube.tinicube.data;
 
 
 public class DrawerItem {
-	private String urlThumbnail;
-	private String title;
-	private int value;
+	protected String urlThumbnail;
+	protected boolean hasThumbnail = false;
+	protected String title;
+	protected int value;
 	
 	public DrawerItem(String urlThumbnail, String title, int value) {
 		super();
 		this.urlThumbnail = urlThumbnail;
 		this.title = title;
 		this.value = value;
+		this.hasThumbnail = true;
 	}
-
+	public DrawerItem(String title, int value) {
+		super();
+		this.title = title;
+		this.value = value;
+		this.hasThumbnail = false;
+	}
 	public String getUrlThumbnail() {
 		return urlThumbnail;
 	}
-
-	public void setUrlThumbnail(String urlThumbnail) {
-		this.urlThumbnail = urlThumbnail;
+	public boolean isHasThumbnail() {
+		return hasThumbnail;
 	}
-
 	public String getTitle() {
 		return title;
 	}
-
-	public void setTitle(String title) {
-		this.title = title;
-	}
-
 	public int getValue() {
 		return value;
-	}
-
-	public void setValue(int value) {
-		this.value = value;
 	}
 	
 	
