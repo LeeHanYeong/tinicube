@@ -1,12 +1,14 @@
 package com.tinicube.tinicube;
 
-import android.content.Context;
+import java.util.ArrayList;
+
+import com.tinicube.tinicube.common.C;
+
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -18,7 +20,8 @@ public class MainActivity extends AdlibrActionBarActivity {
 	private DrawerLayout mDrawerLayout;
 	private LinearLayout mDrawerView;
 	private ExpandableListView mDrawerList;
-	private View viewDrawerHeader;
+	private ArrayList<DrawerGroup> mDrawerGroupList;
+	private DrawerAdapter mDrawerAdapter;
 	private ActionBarDrawerToggle mDrawerToggle;
 	
 	@Override
@@ -26,22 +29,34 @@ public class MainActivity extends AdlibrActionBarActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main_activity);
 		
+		// DrawerGroup, DrawerItem 설정
+		mDrawerGroupList = new ArrayList<DrawerGroup>();
+		DrawerGroup drawerGroupCategory = new DrawerGroup("Category", C.DRAWERGROUP_CATEGORY);
+		drawerGroupCategory.addDrawerItem(new DrawerItem("홈", C.DRAWERITEM_HOME));
+		drawerGroupCategory.addDrawerItem(new DrawerItem("전체 작품 보기", C.DRAWERITEM_ALL_WORKS));
+		drawerGroupCategory.addDrawerItem(new DrawerItem("전체 작가 보기", C.DRAWERITEM_ALL_AUTHORS));
+		mDrawerGroupList.add(drawerGroupCategory);
+		
+		DrawerGroup drawerGroupSetting = new DrawerGroup("Settings", C.DRAWERGROUP_SETTING);
+		drawerGroupSetting.addDrawerItem(new DrawerItem("로그인", C.DRAWERITEM_SIGNIN));
+		drawerGroupSetting.addDrawerItem(new DrawerItem("설정", C.DRAWERITEM_SETTING));
+		mDrawerGroupList.add(drawerGroupSetting);
+		
 		// NavigationDrawer 설정 (Layout-Drawer, Activity전체, View-Drawer전체, List-Drawer의 List부분)
 		mDrawerLayout = (DrawerLayout) findViewById(R.id.navigationDrawerLayout);
 		mDrawerView = (LinearLayout) findViewById(R.id.navigationDrawerView);
 		mDrawerList = (ExpandableListView) findViewById(R.id.navigationDrawerLeftDrawer);
 		// set a custom shadow that overlays the main content when the drawer opens
 		mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
-				
-		// NavigationDrawer의 ListView에 Header View추가
-//		LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-//		viewDrawerHeader = inflater.inflate(R.layout.drawer_header, null);
-//		mDrawerList.addHeaderView(viewDrawerHeader);
 		
 		// NavigationDrawer의 ListView에 Adapter 연결, 클릭리스너 할당
-//		mCategoryAdapter = new CategoryAdapter(mContext, R.layout.drawer_item, R.layout.drawer_item2, mDataCategory1List, mCategory2ClickListener);
-//		mDrawerList.setAdapter(mCategoryAdapter);
+		mDrawerAdapter = new DrawerAdapter(mContext, mDrawerGroupList);
+		mDrawerList.setAdapter(mDrawerAdapter);
 //		mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
+		
+		// NavigationDrawer의 ExpandableListView에 Expand설정
+		mDrawerList.expandGroup(0);
+		mDrawerList.expandGroup(1);
 
 		// ActionBar AppIcon으로 NavigationDrawer 작동하도록 설정
 		mActionBar.setHomeButtonEnabled(true);
@@ -57,7 +72,6 @@ public class MainActivity extends AdlibrActionBarActivity {
 			public void onDrawerClosed(View view) {
 				invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
 			}
-
 			public void onDrawerOpened(View drawerView) {
 				invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
 			}
@@ -74,6 +88,9 @@ public class MainActivity extends AdlibrActionBarActivity {
 	 * 해당 Position의 Fragment를 만들어주며, 클릭 시 Drawer를 닫아줌
 	 */
 	private void selectItem(int position) {
+		switch(position){
+		
+		}
 //		ComicListFragment fragment = null;
 //		if(position == 0){
 //			DataCategory1 curCategory1 = mDescription.getDataCategory1List().get(0);
@@ -90,14 +107,14 @@ public class MainActivity extends AdlibrActionBarActivity {
 //
 //		// update selected item and title, then close the drawer			
 //		mDrawerList.setItemChecked(position, true);
-//		mDrawerLayout.closeDrawer(mDrawerList);
+//		mDrawerLayout.closeDrawer(mDrawerView);
 	}
 
 	/* Called whenever we call invalidateOptionsMenu() */
 	@Override
 	public boolean onPrepareOptionsMenu(Menu menu) {
 		// If the nav drawer is open, hide action items related to the content view
-		boolean drawerOpen = mDrawerLayout.isDrawerOpen(mDrawerList);
+		boolean drawerOpen = mDrawerLayout.isDrawerOpen(mDrawerView);
 		//        menu.findItem(R.id.action_websearch).setVisible(!drawerOpen);
 		return super.onPrepareOptionsMenu(menu);
 	}
