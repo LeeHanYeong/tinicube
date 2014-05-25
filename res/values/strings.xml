@@ -3,6 +3,16 @@
 
     <string name="app_name">tinicube</string>
     <string name="action_settings">Settings</string>
-    <string name="hello_world">Hello world!</string>
+    <string name="drawer_open">Open navigation drawer</string>
+    <string name="drawer_close">Close navigation drawer</string>
+
+    <!-- AD Info -->
+    <string name="id_adlibr">512755ffe4b02fa05c6baae1</string>
+    <string name="id_adam">4650Z2zT13cfb281f03</string>
+    <string name="id_cauly">KXcG9UV0</string>
+    <string name="id_inmobi">d93696fb1a1044519844ca5936f358dc</string>
+
+    <!-- Flurry -->
+    <string name="id_flurry">P4JTWD7TCZGJ3CG7ZFXK</string>
 
 </resources>
