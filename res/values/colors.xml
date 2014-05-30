@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    
+    <color name="common_background_gray">#FFECF0F1</color>
+    <color name="common_line_gray">#FFBDC3C7</color>
     <color name="actionbar_background">#FF2980B9</color>
     
 </resources>

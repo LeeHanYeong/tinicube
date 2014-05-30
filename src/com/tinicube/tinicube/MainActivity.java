@@ -6,6 +6,7 @@ import android.content.res.Configuration;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -15,6 +16,7 @@ import android.widget.LinearLayout;
 import arcanelux.library.activity.AdlibrActionBarActivity;
 
 import com.tinicube.tinicube.common.C;
+import com.tinicube.tinicube.main.MainFragment;
 
 public class MainActivity extends AdlibrActionBarActivity {
 	private DrawerLayout mDrawerLayout;
@@ -24,16 +26,22 @@ public class MainActivity extends AdlibrActionBarActivity {
 	private DrawerAdapter mDrawerAdapter;
 	private ActionBarDrawerToggle mDrawerToggle;
 	
+
+	
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main_activity);
 		
-		
+		// ActionBar 설정
 		mActionBar.setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.actionbar_background)));
 		mActionBar.setIcon(new ColorDrawable(getResources().getColor(android.R.color.transparent))); 
 		mActionBar.setDisplayShowCustomEnabled(true);
 		mActionBar.setCustomView(R.layout.actionbar_main);
+		
+		
+		
 		
 		// DrawerGroup, DrawerItem 설정
 		mDrawerGroupList = new ArrayList<DrawerGroup>();
@@ -89,13 +97,23 @@ public class MainActivity extends AdlibrActionBarActivity {
 		}
 	}
 	
+	
+	
 	/** 
 	 * NavigationDrawer의 아이템 클릭시 발생하는 이벤트
 	 * 해당 Position의 Fragment를 만들어주며, 클릭 시 Drawer를 닫아줌
 	 */
 	private void selectItem(int position) {
 		switch(position){
-		
+		case 0:
+			MainFragment fragment = new MainFragment();
+			FragmentManager fragmentManager = getSupportFragmentManager();
+			fragmentManager.beginTransaction().replace(R.id.content_frame, fragment).commit();
+	
+			// update selected item and title, then close the drawer			
+			mDrawerList.setItemChecked(position, true);
+			mDrawerLayout.closeDrawer(mDrawerView);	
+			break;
 		}
 //		ComicListFragment fragment = null;
 //		if(position == 0){
