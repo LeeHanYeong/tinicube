@@ -2,12 +2,10 @@ package com.tinicube.tinicube;
 
 import java.util.ArrayList;
 
-import com.tinicube.tinicube.common.C;
-
 import android.content.res.Configuration;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
-import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -15,6 +13,8 @@ import android.view.View;
 import android.widget.ExpandableListView;
 import android.widget.LinearLayout;
 import arcanelux.library.activity.AdlibrActionBarActivity;
+
+import com.tinicube.tinicube.common.C;
 
 public class MainActivity extends AdlibrActionBarActivity {
 	private DrawerLayout mDrawerLayout;
@@ -28,6 +28,12 @@ public class MainActivity extends AdlibrActionBarActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main_activity);
+		
+		
+		mActionBar.setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.actionbar_background)));
+		mActionBar.setIcon(new ColorDrawable(getResources().getColor(android.R.color.transparent))); 
+		mActionBar.setDisplayShowCustomEnabled(true);
+		mActionBar.setCustomView(R.layout.actionbar_main);
 		
 		// DrawerGroup, DrawerItem 설정
 		mDrawerGroupList = new ArrayList<DrawerGroup>();
@@ -47,7 +53,7 @@ public class MainActivity extends AdlibrActionBarActivity {
 		mDrawerView = (LinearLayout) findViewById(R.id.navigationDrawerView);
 		mDrawerList = (ExpandableListView) findViewById(R.id.navigationDrawerLeftDrawer);
 		// set a custom shadow that overlays the main content when the drawer opens
-		mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
+//		mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
 		
 		// NavigationDrawer의 ListView에 Adapter 연결, 클릭리스너 할당
 		mDrawerAdapter = new DrawerAdapter(mContext, mDrawerGroupList);
@@ -163,12 +169,4 @@ public class MainActivity extends AdlibrActionBarActivity {
 		//        }
 		return super.onOptionsItemSelected(item);
 	}
-	
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.main, menu);
-		return true;
-	}
-
 }

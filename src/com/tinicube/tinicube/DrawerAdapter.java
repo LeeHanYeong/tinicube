@@ -69,22 +69,26 @@ public class DrawerAdapter extends BaseExpandableListAdapter{
 
 	@Override
 	public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
-		if(convertView == null) {
-			LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-			convertView = inflater.inflate(R.layout.drawer_item, null);
-			
-			DrawerGroup curGroup = mDrawerGroupList.get(groupPosition);
-			DrawerItem curItem = curGroup.getDrawerItemList().get(childPosition);
-			TextView tvTitle = (TextView) convertView.findViewById(R.id.tvDrawerItemTitle);
-			tvTitle.setText(curItem.getTitle());
-		} 
+		LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		View view = inflater.inflate(R.layout.drawer_item, null);
 		
-		return convertView;
+		DrawerGroup curGroup = mDrawerGroupList.get(groupPosition);
+		DrawerItem curItem = curGroup.getDrawerItemList().get(childPosition);
+		TextView tvTitle = (TextView) view.findViewById(R.id.tvDrawerItemTitle);
+		tvTitle.setText(curItem.getTitle());
+		return view;
+//		View view;
+//		if(convertView == null) {
+//			
+//		} else{
+//			view = convertView;
+//		}
+//		
+//		return view;
 	}
 
 	@Override
 	public boolean isChildSelectable(int groupPosition, int childPosition) {
 		return false;
 	}
-
 }
