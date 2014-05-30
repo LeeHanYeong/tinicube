@@ -4,15 +4,34 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <android.support.v4.view.ViewPager
-        android:id="@+id/vpMainCover"
-        android:layout_width="fill_parent"
-        android:layout_height="240dp" />
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="180dp" >
 
-    <com.viewpagerindicator.CirclePageIndicator
-        android:id="@+id/indicatorMainCover"
-        android:layout_width="fill_parent"
+        <android.support.v4.view.ViewPager
+            android:id="@+id/vpMainCover"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <com.viewpagerindicator.CirclePageIndicator
+            android:id="@+id/indicatorMainCover"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center_horizontal"
+            android:padding="6dp" />
+    </FrameLayout>
+
+    <LinearLayout
+        android:id="@+id/llMainRecentUpdate"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="10dip" />
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/tvMainRecentUpdateTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/main_recent_update_title" />
+    </LinearLayout>
 
 </LinearLayout>

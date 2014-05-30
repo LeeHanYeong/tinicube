@@ -106,7 +106,7 @@ public class MainActivity extends AdlibrActionBarActivity {
 	private void selectItem(int position) {
 		switch(position){
 		case 0:
-			MainFragment fragment = new MainFragment();
+			MainFragment fragment = new MainFragment(mContext, C.CUSTOM_FONT_FILE_NAME);
 			FragmentManager fragmentManager = getSupportFragmentManager();
 			fragmentManager.beginTransaction().replace(R.id.content_frame, fragment).commit();
 	

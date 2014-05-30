@@ -5,6 +5,8 @@ import org.json.JSONObject;
 
 import arcanelux.library.data.BaseData;
 
+import com.tinicube.tinicubebase.data.DataImage;
+
 public class DataCoverImage extends BaseData {
 
 	public DataCoverImage() {
