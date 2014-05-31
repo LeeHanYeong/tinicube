@@ -32,9 +32,11 @@ public class MainFragment extends BaseFragment {
 	private PageIndicator mIndicator;
 	private ArrayList<DataCoverImage> mCoverImageList;
 
-	// Recent Update Itmes
+	// Recent Update Items
 	private LinearLayout llRecentUpdate;
 	private ArrayList<DataChapter> mRecentUpdateChapterList;
+	
+	// New Work Items
 
 	public MainFragment(Context context, String fontFileName) {
 		super(context, fontFileName);
@@ -74,17 +76,13 @@ public class MainFragment extends BaseFragment {
 			TextView tvChapterTitle = (TextView) recentItemView.findViewById(R.id.tvMainRecentUpdateItemChapterTitle);
 
 			ImageOptions options = new ImageOptions();
-			options.round = (int)(15 * 2);
+			options.round = (int)(10);
 			aq.id(ivChapterThumbnail).image("http://thumb.comic.naver.net/webtoon/81482/thumbnail/title_thumbnail_20131025191151_t125x101.jpg", options);
 			tvWorkTitle.setText("Work " + i);
 			tvChapterTitle.setText("Chapter " + i);
 
 			llRecentUpdate.addView(recentItemView);
 		}
-		View tempView = new View(mContext);
-		tempView.setBackgroundColor(Color.BLACK);
-		tempView.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, 300));
-		llRecentUpdate.addView(tempView);
 
 		return view;
 	}

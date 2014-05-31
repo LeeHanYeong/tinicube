@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:paddingTop="10dp"
+    android:gravity="center_vertical" >
 
     <ImageView
         android:id="@+id/ivMainRecentUpdateItemThumbnail"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_width="60dp"
+        android:layout_height="35dp"
+        android:scaleType="centerCrop"	
+        android:layout_marginRight="10dp" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -17,13 +21,17 @@
             android:id="@+id/tvMainRecentUpdateItemWorkTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="tvMainRecentUpdateItemWorkTitle" />
+            android:text="tvMainRecentUpdateItemWorkTitle"
+            android:textColor="@color/text_darkgray"
+            android:textSize="12dp" />
 
         <TextView
             android:id="@+id/tvMainRecentUpdateItemChapterTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="tvMainRecentUpdateItemChapterTitle" />
+            android:text="tvMainRecentUpdateItemChapterTitle"
+            android:textColor="@color/text_gray"
+            android:textSize="10dp" />
     </LinearLayout>
 
 </LinearLayout>

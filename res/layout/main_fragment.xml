@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
+    android:background="@color/white"
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
@@ -21,17 +22,22 @@
             android:padding="6dp" />
     </FrameLayout>
 
+    <View style="@style/CommonLine" />
+
     <LinearLayout
         android:id="@+id/llMainRecentUpdate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical" >
+        android:orientation="vertical"
+        android:padding="10dp" >
 
         <TextView
             android:id="@+id/tvMainRecentUpdateTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/main_recent_update_title" />
+            android:text="@string/main_recent_update_title"
+            android:textSize="18dp" />
     </LinearLayout>
+    <View style="@style/CommonLine" />
 
 </LinearLayout>
