@@ -1,43 +1,132 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:background="@color/white"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
-
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="180dp" >
-
-        <android.support.v4.view.ViewPager
-            android:id="@+id/vpMainCover"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-
-        <com.viewpagerindicator.CirclePageIndicator
-            android:id="@+id/indicatorMainCover"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|center_horizontal"
-            android:padding="6dp" />
-    </FrameLayout>
-
-    <View style="@style/CommonLine" />
+    android:fillViewport="true" >
 
     <LinearLayout
-        android:id="@+id/llMainRecentUpdate"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="10dp" >
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:orientation="vertical" >
 
-        <TextView
-            android:id="@+id/tvMainRecentUpdateTitle"
-            android:layout_width="wrap_content"
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="180dp" >
+
+            <android.support.v4.view.ViewPager
+                android:id="@+id/vpMainCover"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+            <com.viewpagerindicator.CirclePageIndicator
+                android:id="@+id/indicatorMainCover"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|center_horizontal"
+                android:padding="6dp" />
+        </FrameLayout>
+
+        <View style="@style/CommonLine" />
+
+        <LinearLayout
+            android:id="@+id/llMainRecentUpdate"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/main_recent_update_title"
-            android:textSize="18dp" />
-    </LinearLayout>
-    <View style="@style/CommonLine" />
+            android:orientation="vertical"
+            android:paddingTop="10dp" >
 
-</LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:id="@+id/tvMainRecentUpdateTitle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1"
+                    android:text="@string/main_recent_update_title"
+                    android:textSize="18dp" />
+
+                <TextView
+                    android:id="@+id/tvMainRecentUpdateMore"
+                    style="@style/tvMainListItemMore"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="5dp"
+                    android:text="@string/common_listitem_view_more" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <View style="@style/CommonLine" />
+
+        <LinearLayout
+            android:id="@+id/llMainNewWork"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:id="@+id/tvMainNewWorkTitle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1"
+                    android:text="@string/main_new_work_title"
+                    android:textSize="18dp" />
+
+                <TextView
+                    android:id="@+id/tvMainNewWorkMore"
+                    style="@style/tvMainListItemMore"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="5dp"
+                    android:text="@string/common_listitem_view_more" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <View style="@style/CommonLine" />
+
+        <LinearLayout
+            android:id="@+id/llMainPopularWork"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:id="@+id/tvMainPopularWorkTitle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1"
+                    android:text="@string/main_popular_work_title"
+                    android:textSize="18dp" />
+
+                <TextView
+                    android:id="@+id/tvMainPopularWorkMore"
+                    style="@style/tvMainListItemMore"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="5dp"
+                    android:text="@string/common_listitem_view_more" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+</ScrollView>

@@ -31,6 +31,7 @@ public class MainActivity extends AdlibrActionBarActivity {
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		showAd = false;
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main_activity);
 		

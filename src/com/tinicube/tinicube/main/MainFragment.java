@@ -2,6 +2,8 @@ package com.tinicube.tinicube.main;
 
 import java.util.ArrayList;
 
+import org.json.JSONObject;
+
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -22,6 +24,7 @@ import com.tinicube.tinicube.R;
 import com.tinicube.tinicube.common.C;
 import com.tinicube.tinicube.data.DataCoverImage;
 import com.tinicube.tinicubebase.data.work.DataChapter;
+import com.tinicube.tinicubebase.data.work.DataWork;
 import com.viewpagerindicator.CirclePageIndicator;
 import com.viewpagerindicator.PageIndicator;
 
@@ -37,6 +40,12 @@ public class MainFragment extends BaseFragment {
 	private ArrayList<DataChapter> mRecentUpdateChapterList;
 	
 	// New Work Items
+	private LinearLayout llNewWork;
+	private ArrayList<DataWork> mNewWorkList;
+	
+	// Popular Work Items
+	private LinearLayout llPopularWork;
+	private ArrayList<DataWork> mPopularWorkList;
 
 	public MainFragment(Context context, String fontFileName) {
 		super(context, fontFileName);
@@ -71,17 +80,70 @@ public class MainFragment extends BaseFragment {
 			DataChapter chapter = mRecentUpdateChapterList.get(i);
 			String title = i + chapter.getTitle();
 			View recentItemView = inflateWithCustomFont(inflater, container, R.layout.main_recent_update_item);
+			if(i % 2 == 0){
+				recentItemView.setBackgroundColor(getResources().getColor(R.color.common_background_gray));
+			}
 			ImageView ivChapterThumbnail = (ImageView) recentItemView.findViewById(R.id.ivMainRecentUpdateItemThumbnail);
 			TextView tvWorkTitle = (TextView) recentItemView.findViewById(R.id.tvMainRecentUpdateItemWorkTitle);
 			TextView tvChapterTitle = (TextView) recentItemView.findViewById(R.id.tvMainRecentUpdateItemChapterTitle);
 
 			ImageOptions options = new ImageOptions();
 			options.round = (int)(10);
-			aq.id(ivChapterThumbnail).image("http://thumb.comic.naver.net/webtoon/81482/thumbnail/title_thumbnail_20131025191151_t125x101.jpg", options);
+			if(i % 2 == 0) {
+				aq.id(ivChapterThumbnail).image("http://thumb.comic.naver.net/webtoon/81482/thumbnail/title_thumbnail_20131025191151_t125x101.jpg", options);
+			} else {
+				aq.id(ivChapterThumbnail).image("http://img.sbs.co.kr/newsnet/etv/upload/2012/12/22/30000204526_700.jpg", options);	
+			}
+			
+			
 			tvWorkTitle.setText("Work " + i);
 			tvChapterTitle.setText("Chapter " + i);
 
 			llRecentUpdate.addView(recentItemView);
+		}
+		
+		// New Work Items 설정
+		mNewWorkList = new ArrayList<DataWork>();
+		mNewWorkList.add(new DataWork(new JSONObject()));
+		mNewWorkList.add(new DataWork(new JSONObject()));
+		mNewWorkList.add(new DataWork(new JSONObject()));
+		mNewWorkList.add(new DataWork(new JSONObject()));
+		llNewWork = (LinearLayout) view.findViewById(R.id.llMainNewWork);
+		for(int i=0; i<mNewWorkList.size(); i++) {
+			DataWork work = mNewWorkList.get(i);
+			View newWorkView = inflateWithCustomFont(inflater, container, R.layout.main_new_work_item);
+			ImageView ivWorkCover = (ImageView) newWorkView.findViewById(R.id.ivMainNewWorkItemCover);
+			
+			ImageOptions options = new ImageOptions();
+			options.round = (int)(10);
+			if(i % 2 == 0) {
+				aq.id(ivWorkCover).image("http://cfile9.uf.tistory.com/image/2133F83651F15FCB389DB0", options);
+			} else {
+				aq.id(ivWorkCover).image("http://img.sbs.co.kr/newsnet/etv/upload/2012/12/22/30000204526_700.jpg", options);	
+			}
+			llNewWork.addView(newWorkView);
+		}
+		
+		// Popular Work Items 설정
+		mPopularWorkList = new ArrayList<DataWork>();
+		mPopularWorkList.add(new DataWork(new JSONObject()));
+		mPopularWorkList.add(new DataWork(new JSONObject()));
+		mPopularWorkList.add(new DataWork(new JSONObject()));
+		mPopularWorkList.add(new DataWork(new JSONObject()));
+		llPopularWork = (LinearLayout) view.findViewById(R.id.llMainPopularWork);
+		for(int i=0; i<mPopularWorkList.size(); i++) {
+			DataWork work = mPopularWorkList.get(i);
+			View newWorkView = inflateWithCustomFont(inflater, container, R.layout.main_new_work_item);
+			ImageView ivWorkCover = (ImageView) newWorkView.findViewById(R.id.ivMainNewWorkItemCover);
+			
+			ImageOptions options = new ImageOptions();
+			options.round = (int)(10);
+			if(i % 2 == 0) {
+				aq.id(ivWorkCover).image("http://cfile9.uf.tistory.com/image/2133F83651F15FCB389DB0", options);
+			} else {
+				aq.id(ivWorkCover).image("http://img.sbs.co.kr/newsnet/etv/upload/2012/12/22/30000204526_700.jpg", options);	
+			}
+			llPopularWork.addView(newWorkView);
 		}
 
 		return view;

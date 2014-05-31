@@ -6,8 +6,13 @@
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
     
+    <!-- Common -->
+    <string name="common_listitem_view_more">더 보기 ></string>
+    
     <!-- Main -->
     <string name="main_recent_update_title">최근 업데이트</string>
+    <string name="main_new_work_title">신규 작품</string>
+    <string name="main_popular_work_title">인기 작품</string>
 
     <!-- AD Info -->
     <string name="id_adlibr">512755ffe4b02fa05c6baae1</string>
