@@ -6,11 +6,13 @@
     android:gravity="center_vertical"
     android:orientation="vertical" >
 
-    <ImageButton
-        android:id="@+id/ibMainLogo"
+    <TextView
+        android:id="@+id/tvMainLogo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@android:color/transparent"
-        android:src="@drawable/main_logo" />
+        android:textColor="@color/white"
+        android:textSize="20dp"
+        android:text="tinicube" />
+
 
 </LinearLayout>

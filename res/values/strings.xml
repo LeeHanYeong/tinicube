@@ -13,6 +13,8 @@
     <string name="main_recent_update_title">최근 업데이트</string>
     <string name="main_new_work_title">신규 작품</string>
     <string name="main_popular_work_title">인기 작품</string>
+    <string name="main_new_author_title">신규 작가</string>
+    <string name="main_popular_author_title">인기 작가</string>
 
     <!-- AD Info -->
     <string name="id_adlibr">512755ffe4b02fa05c6baae1</string>

@@ -23,6 +23,7 @@ import com.androidquery.callback.ImageOptions;
 import com.tinicube.tinicube.R;
 import com.tinicube.tinicube.common.C;
 import com.tinicube.tinicube.data.DataCoverImage;
+import com.tinicube.tinicubebase.data.DataUser;
 import com.tinicube.tinicubebase.data.work.DataChapter;
 import com.tinicube.tinicubebase.data.work.DataWork;
 import com.viewpagerindicator.CirclePageIndicator;
@@ -46,6 +47,14 @@ public class MainFragment extends BaseFragment {
 	// Popular Work Items
 	private LinearLayout llPopularWork;
 	private ArrayList<DataWork> mPopularWorkList;
+	
+	// New Author Items
+	private LinearLayout llNewAuthor;
+	private ArrayList<DataUser> mNewAuthorList;
+	
+	// Popular Author Items
+	private LinearLayout llPopularAuthor;
+	private ArrayList<DataUser> mPopularAuthorList;
 
 	public MainFragment(Context context, String fontFileName) {
 		super(context, fontFileName);
@@ -90,7 +99,7 @@ public class MainFragment extends BaseFragment {
 			ImageOptions options = new ImageOptions();
 			options.round = (int)(10);
 			if(i % 2 == 0) {
-				aq.id(ivChapterThumbnail).image("http://thumb.comic.naver.net/webtoon/81482/thumbnail/title_thumbnail_20131025191151_t125x101.jpg", options);
+				aq.id(ivChapterThumbnail).image("http://archivenew.vop.co.kr/images/ee5f3848fcea041ce9cd70fa338ef6f6/2012-12/18090524_1.jpg", options);
 			} else {
 				aq.id(ivChapterThumbnail).image("http://img.sbs.co.kr/newsnet/etv/upload/2012/12/22/30000204526_700.jpg", options);	
 			}
@@ -145,6 +154,31 @@ public class MainFragment extends BaseFragment {
 			}
 			llPopularWork.addView(newWorkView);
 		}
+		
+		// New Author Items 설정
+		mNewAuthorList = new ArrayList<DataUser>();
+		mNewAuthorList.add(new DataUser());
+		mNewAuthorList.add(new DataUser());
+		mNewAuthorList.add(new DataUser());
+		llNewAuthor = (LinearLayout) view.findViewById(R.id.llMainNewAuthor);
+		for(int i=0; i<mNewAuthorList.size(); i++) {
+			View newAuthorView = inflateWithCustomFont(inflater, container, R.layout.main_author_item);
+			ImageView ivAuthorThumbnail = (ImageView) newAuthorView.findViewById(R.id.ivMainAuthorItemThumbnail);
+			TextView tvAuthorNickname= (TextView) newAuthorView.findViewById(R.id.tvMainAuthorItemNickname);
+			TextView tvAuthorDescription = (TextView) newAuthorView.findViewById(R.id.tvMainAuthorItemDescription);
+			
+			ImageOptions options = new ImageOptions();
+			options.round = (int)(10);
+			if(i % 2 == 0) {
+				aq.id(ivAuthorThumbnail).image("http://cfile9.uf.tistory.com/image/2133F83651F15FCB389DB0", options);
+			} else {
+				aq.id(ivAuthorThumbnail).image("http://img.sbs.co.kr/newsnet/etv/upload/2012/12/22/30000204526_700.jpg", options);	
+			}
+			
+			tvAuthorNickname.setText("Author Nickname [" + i + "]");
+			tvAuthorDescription.setText("Author One line description [" + i + "]");
+			llNewAuthor.addView(newAuthorView);
+		}
 
 		return view;
 	}
@@ -171,7 +205,13 @@ public class MainFragment extends BaseFragment {
 
 			ImageOptions options = new ImageOptions();
 			options.round = (int)(15 * 2);
-			aq.id(ivCover).image("http://thumb.comic.naver.net/webtoon/624632/thumbnail/title_thumbnail_20140519170435_t218x120.jpg", options);
+			if(position % 2 == 0){
+				aq.id(ivCover).image("https://pbs.twimg.com/profile_images/2822166592/41ad73223bc94c1657947a97321ed7d7.jpeg", options);	
+			} else {
+				aq.id(ivCover).image("http://cfile4.uf.tistory.com/original/263C824351DF1CB85F7675", options);	
+				
+			}
+			
 
 			((ViewPager) container).addView(curView, 0);
 			return curView;

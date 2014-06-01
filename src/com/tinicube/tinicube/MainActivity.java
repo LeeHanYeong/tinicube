@@ -11,6 +11,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ExpandableListView;
 import android.widget.LinearLayout;
 import arcanelux.library.activity.AdlibrActionBarActivity;
@@ -33,16 +34,18 @@ public class MainActivity extends AdlibrActionBarActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		showAd = false;
 		super.onCreate(savedInstanceState);
+		useCustomFont(C.CUSTOM_FONT_FILE_NAME);
 		setContentView(R.layout.main_activity);
 		
 		// ActionBar 설정
 		mActionBar.setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.actionbar_background)));
 		mActionBar.setIcon(new ColorDrawable(getResources().getColor(android.R.color.transparent))); 
 		mActionBar.setDisplayShowCustomEnabled(true);
-		mActionBar.setCustomView(R.layout.actionbar_main);
-		
-		
-		
+		mActionBar.setDisplayUseLogoEnabled(false);
+		View viewActionBar = inflateWithCustomFont(mInflater, R.layout.actionbar_main, C.CUSTOM_FONT_TITILLIUM_1);
+		mActionBar.setCustomView(viewActionBar);
+		mActionBar.setTitle("");
+//		mActionBar.setCustomView(R.layout.actionbar_main);
 		
 		// DrawerGroup, DrawerItem 설정
 		mDrawerGroupList = new ArrayList<DrawerGroup>();
