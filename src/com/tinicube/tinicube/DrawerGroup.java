@@ -18,6 +18,16 @@ public class DrawerGroup extends DrawerItem {
 		this.hasItem = false;
 	}
 
+	public DrawerGroup(int resThumbnail, String title, int value) {
+		super(resThumbnail, title, value);
+		this.hasItem = false;
+	}
+
+	public DrawerGroup(int resThumbnail, String title, int value, ArrayList<DrawerItem> drawerItemList) {
+		super(resThumbnail, title, value);
+		this.drawerItemList = drawerItemList;
+		this.hasItem = true;
+	}
 	public DrawerGroup(String urlThumbnail, String title, int value, ArrayList<DrawerItem> drawerItemList) {
 		super(urlThumbnail, title, value);
 		this.drawerItemList = drawerItemList;

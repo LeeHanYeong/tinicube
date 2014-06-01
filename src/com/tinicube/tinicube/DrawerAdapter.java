@@ -2,6 +2,7 @@ package com.tinicube.tinicube;
 
 import java.util.ArrayList;
 
+import com.androidquery.AQuery;
 import com.tinicube.tinicube.common.C;
 
 import android.content.Context;
@@ -11,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 import arcanelux.library.baseclass.BaseArrayAdapter;
 
@@ -21,6 +23,7 @@ public class DrawerAdapter extends BaseExpandableListAdapter {
 	private static Typeface mTypeface;
 	
 	private Context mContext;
+	protected AQuery aq;
 	private ArrayList<DrawerGroup> mDrawerGroupList;
 	
 	public DrawerAdapter(Context context, ArrayList<DrawerGroup> drawerGroupList) {
@@ -28,6 +31,7 @@ public class DrawerAdapter extends BaseExpandableListAdapter {
 		this.mContext = context;
 		this.mDrawerGroupList = drawerGroupList;
 		this.hasCustomFontFile = true;
+		this.aq = new AQuery(mContext);
 	}
 
 	@Override
@@ -74,6 +78,15 @@ public class DrawerAdapter extends BaseExpandableListAdapter {
 			DrawerGroup curGroup = mDrawerGroupList.get(groupPosition);
 			TextView tvTitle = (TextView) convertView.findViewById(R.id.tvDrawerGroupTitle);
 			tvTitle.setText(curGroup.getTitle());
+			
+			ImageView ivIcon = (ImageView) convertView.findViewById(R.id.ivDrawerGroupIcon);
+			if(curGroup.isHasResThumbnail()){
+				int resIcon = curGroup.getResThumbnail();
+				ivIcon.setImageResource(resIcon);
+			} else if(curGroup.isHasUrlThumbnail()){
+				String urlIcon = curGroup.getUrlThumbnail();
+				aq.id(ivIcon).image(urlIcon);
+			}
 		} 
 		return convertView;
 	}

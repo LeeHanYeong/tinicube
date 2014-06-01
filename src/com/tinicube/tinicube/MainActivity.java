@@ -7,11 +7,11 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ExpandableListView;
 import android.widget.LinearLayout;
 import arcanelux.library.activity.AdlibrActionBarActivity;
@@ -42,20 +42,20 @@ public class MainActivity extends AdlibrActionBarActivity {
 		mActionBar.setIcon(new ColorDrawable(getResources().getColor(android.R.color.transparent))); 
 		mActionBar.setDisplayShowCustomEnabled(true);
 		mActionBar.setDisplayUseLogoEnabled(false);
-		View viewActionBar = inflateWithCustomFont(mInflater, R.layout.actionbar_main, C.CUSTOM_FONT_TITILLIUM_1);
+		View viewActionBar = inflateWithCustomFont(mInflater, R.layout.actionbar_main, C.CUSTOM_FONT_TITILLIUM_2);
 		mActionBar.setCustomView(viewActionBar);
 		mActionBar.setTitle("");
 //		mActionBar.setCustomView(R.layout.actionbar_main);
 		
 		// DrawerGroup, DrawerItem 설정
 		mDrawerGroupList = new ArrayList<DrawerGroup>();
-		DrawerGroup drawerGroupCategory = new DrawerGroup("Category", C.DRAWERGROUP_CATEGORY);
+		DrawerGroup drawerGroupCategory = new DrawerGroup(R.drawable.menu_category, "Category", C.DRAWERGROUP_CATEGORY);
 		drawerGroupCategory.addDrawerItem(new DrawerItem("홈", C.DRAWERITEM_HOME));
 		drawerGroupCategory.addDrawerItem(new DrawerItem("전체 작품 보기", C.DRAWERITEM_ALL_WORKS));
 		drawerGroupCategory.addDrawerItem(new DrawerItem("전체 작가 보기", C.DRAWERITEM_ALL_AUTHORS));
 		mDrawerGroupList.add(drawerGroupCategory);
 		
-		DrawerGroup drawerGroupSetting = new DrawerGroup("Settings", C.DRAWERGROUP_SETTING);
+		DrawerGroup drawerGroupSetting = new DrawerGroup(R.drawable.menu_settings, "Settings", C.DRAWERGROUP_SETTING);
 		drawerGroupSetting.addDrawerItem(new DrawerItem("로그인", C.DRAWERITEM_SIGNIN));
 		drawerGroupSetting.addDrawerItem(new DrawerItem("설정", C.DRAWERITEM_SETTING));
 		mDrawerGroupList.add(drawerGroupSetting);
@@ -65,7 +65,7 @@ public class MainActivity extends AdlibrActionBarActivity {
 		mDrawerView = (LinearLayout) findViewById(R.id.navigationDrawerView);
 		mDrawerList = (ExpandableListView) findViewById(R.id.navigationDrawerLeftDrawer);
 		// set a custom shadow that overlays the main content when the drawer opens
-//		mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
+		mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
 		
 		// NavigationDrawer의 ListView에 Adapter 연결, 클릭리스너 할당
 		mDrawerAdapter = new DrawerAdapter(mContext, mDrawerGroupList);
