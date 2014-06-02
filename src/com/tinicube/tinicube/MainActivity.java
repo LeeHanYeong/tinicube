@@ -22,14 +22,12 @@ import com.tinicube.tinicube.main.MainFragment;
 public class MainActivity extends AdlibrActionBarActivity {
 	private DrawerLayout mDrawerLayout;
 	private LinearLayout mDrawerView;
+	private View mDrawerViewUserInfo;
 	private ExpandableListView mDrawerList;
 	private ArrayList<DrawerGroup> mDrawerGroupList;
 	private DrawerAdapter mDrawerAdapter;
 	private ActionBarDrawerToggle mDrawerToggle;
-	
 
-	
-	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		showAd = false;
@@ -45,7 +43,6 @@ public class MainActivity extends AdlibrActionBarActivity {
 		View viewActionBar = inflateWithCustomFont(mInflater, R.layout.actionbar_main, C.CUSTOM_FONT_TITILLIUM_2);
 		mActionBar.setCustomView(viewActionBar);
 		mActionBar.setTitle("");
-//		mActionBar.setCustomView(R.layout.actionbar_main);
 		
 		// DrawerGroup, DrawerItem 설정
 		mDrawerGroupList = new ArrayList<DrawerGroup>();
@@ -60,9 +57,14 @@ public class MainActivity extends AdlibrActionBarActivity {
 		drawerGroupSetting.addDrawerItem(new DrawerItem("설정", C.DRAWERITEM_SETTING));
 		mDrawerGroupList.add(drawerGroupSetting);
 		
-		// NavigationDrawer 설정 (Layout-Drawer, Activity전체, View-Drawer전체, List-Drawer의 List부분)
+		// NavigationDrawer 설정
+		//		mDrawerLayout : Drawer,Activity전체
+		//		mDrawerView : Drawer전체
+		//		mDrawerViewUserInfo : Drawer상단의 UserInfo. 비로그인 시 visibility를 gone으로 설정
+		//		mDrawerList : Drawer의 List부분)
 		mDrawerLayout = (DrawerLayout) findViewById(R.id.navigationDrawerLayout);
 		mDrawerView = (LinearLayout) findViewById(R.id.navigationDrawerView);
+		mDrawerViewUserInfo = (View) findViewById(R.id.navigationDrawerViewUserInfo);
 		mDrawerList = (ExpandableListView) findViewById(R.id.navigationDrawerLeftDrawer);
 		// set a custom shadow that overlays the main content when the drawer opens
 		mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);

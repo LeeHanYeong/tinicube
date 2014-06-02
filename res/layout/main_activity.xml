@@ -32,15 +32,15 @@
         android:orientation="vertical" >
 
         <LinearLayout
+            android:id="@+id/navigationDrawerViewUserInfo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingLeft="10dp"
-            android:paddingTop="8dp"
-            android:paddingBottom="8dp"
-            android:paddingRight="10dp"
-            
             android:background="@drawable/menu_userinfo_bg"
-            android:gravity="center_vertical" >
+            android:gravity="center_vertical"
+            android:paddingBottom="8dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="8dp" >
 
             <LinearLayout
                 android:layout_width="0dp"
@@ -52,24 +52,59 @@
                 <TextView
                     android:id="@+id/navigationDrawerUserInfoNickname"
                     android:layout_width="match_parent"
-                    android:textSize="16dp"
-                    android:textColor="#FFFFFFFF"
                     android:layout_height="wrap_content"
-                    android:text="Username" />
+                    android:text="Username"
+                    android:textColor="#FFFFFFFF"
+                    android:textSize="16dp" />
 
                 <TextView
                     android:id="@+id/navigationDrawerUserInfoEmail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="11dp"
+                    android:text="Admin@tinicube.com"
                     android:textColor="#BFFFFFFF"
-                    android:text="Admin@tinicube.com" />
+                    android:textSize="11dp" />
             </LinearLayout>
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/menu_next" />
+                android:src="@drawable/common_rightarrow_white" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:visibility="gone"
+            android:id="@+id/navigationDrawerLogin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/menu_userinfo_bg"
+            android:gravity="center_vertical"
+            android:paddingBottom="8dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="8dp" >
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:id="@+id/navigationDrawerLoginText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Login"
+                    android:textColor="#FFFFFFFF"
+                    android:textSize="20dp" />
+
+            </LinearLayout>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/common_rightarrow_white" />
         </LinearLayout>
 
         <ExpandableListView

@@ -7,6 +7,7 @@
         
     <color name="common_background_gray">#FFECF0F1</color>
     <color name="common_line_gray">#FFBDC3C7</color>
+    
     <color name="actionbar_background">#FF2980B9</color>
     
 </resources>

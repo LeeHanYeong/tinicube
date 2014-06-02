@@ -5,14 +5,12 @@ import java.util.ArrayList;
 import org.json.JSONObject;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewGroup.LayoutParams;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -20,16 +18,16 @@ import arcanelux.library.baseclass.BaseFragment;
 import arcanelux.library.baseclass.BasePagerAdapter;
 
 import com.androidquery.callback.ImageOptions;
+import com.tinicube.base.data.DataUser;
+import com.tinicube.comicbase.data.work.DataChapter;
+import com.tinicube.comicbase.data.work.DataWork;
 import com.tinicube.tinicube.R;
 import com.tinicube.tinicube.common.C;
 import com.tinicube.tinicube.data.DataCoverImage;
-import com.tinicube.tinicubebase.data.DataUser;
-import com.tinicube.tinicubebase.data.work.DataChapter;
-import com.tinicube.tinicubebase.data.work.DataWork;
 import com.viewpagerindicator.CirclePageIndicator;
 import com.viewpagerindicator.PageIndicator;
 
-public class MainFragment extends BaseFragment {
+public class MainFragment extends BaseFragment { 
 	// CoverImage ViewPager
 	private ViewPager mCoverImageViewPager;
 	private ImageCoverPagerAdapter mCoverImagePagerAdapter;
@@ -77,7 +75,7 @@ public class MainFragment extends BaseFragment {
 		mIndicator = (CirclePageIndicator) view.findViewById(R.id.indicatorMainCover);
 		mIndicator.setViewPager(mCoverImageViewPager);
 
-		// Recent Update Items 설정
+		// Recent Update Items 설정	
 		mRecentUpdateChapterList = new ArrayList<DataChapter>();
 		mRecentUpdateChapterList.add(new DataChapter());
 		mRecentUpdateChapterList.add(new DataChapter());
@@ -88,13 +86,13 @@ public class MainFragment extends BaseFragment {
 		for(int i=0; i<mRecentUpdateChapterList.size(); i++) {
 			DataChapter chapter = mRecentUpdateChapterList.get(i);
 			String title = i + chapter.getTitle();
-			View recentItemView = inflateWithCustomFont(inflater, container, R.layout.main_recent_update_item);
+			View recentItemView = inflateWithCustomFont(inflater, container, R.layout.listitem_chapter);
 			if(i % 2 == 0){
 				recentItemView.setBackgroundColor(getResources().getColor(R.color.common_background_gray));
 			}
-			ImageView ivChapterThumbnail = (ImageView) recentItemView.findViewById(R.id.ivMainRecentUpdateItemThumbnail);
-			TextView tvWorkTitle = (TextView) recentItemView.findViewById(R.id.tvMainRecentUpdateItemWorkTitle);
-			TextView tvChapterTitle = (TextView) recentItemView.findViewById(R.id.tvMainRecentUpdateItemChapterTitle);
+			ImageView ivChapterThumbnail = (ImageView) recentItemView.findViewById(R.id.ivListItemChapterThumbnail);
+			TextView tvWorkTitle = (TextView) recentItemView.findViewById(R.id.tvListItemChapterTitle);
+			TextView tvChapterTitle = (TextView) recentItemView.findViewById(R.id.tvListItemChapterDescription);
 
 			ImageOptions options = new ImageOptions();
 			options.round = (int)(10);
@@ -104,9 +102,8 @@ public class MainFragment extends BaseFragment {
 				aq.id(ivChapterThumbnail).image("http://img.sbs.co.kr/newsnet/etv/upload/2012/12/22/30000204526_700.jpg", options);	
 			}
 			
-			
 			tvWorkTitle.setText("Work " + i);
-			tvChapterTitle.setText("Chapter " + i);
+			tvChapterTitle.setText("14.05.31 / Chapter " + i);
 
 			llRecentUpdate.addView(recentItemView);
 		}
