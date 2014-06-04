@@ -2,9 +2,6 @@ package com.tinicube.tinicube;
 
 import java.util.ArrayList;
 
-import com.androidquery.AQuery;
-import com.tinicube.tinicube.common.C;
-
 import android.content.Context;
 import android.graphics.Typeface;
 import android.util.Log;
@@ -14,7 +11,9 @@ import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-import arcanelux.library.baseclass.BaseArrayAdapter;
+
+import com.androidquery.AQuery;
+import com.tinicube.base.function.BASE_C;
 
 public class DrawerAdapter extends BaseExpandableListAdapter {
 	protected final String TAG = this.getClass().getName();
@@ -73,7 +72,7 @@ public class DrawerAdapter extends BaseExpandableListAdapter {
 	public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
 		if(convertView == null) {
 			LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-			convertView = inflateWithCustomFont(inflater, R.layout.drawer_group, C.CUSTOM_FONT_TITILLIUM_1);
+			convertView = inflateWithCustomFont(inflater, R.layout.drawer_group, BASE_C.CUSTOM_FONT_TITILLIUM_1);
 			
 			DrawerGroup curGroup = mDrawerGroupList.get(groupPosition);
 			TextView tvTitle = (TextView) convertView.findViewById(R.id.tvDrawerGroupTitle);

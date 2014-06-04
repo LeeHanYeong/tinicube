@@ -16,6 +16,7 @@ import android.widget.ExpandableListView;
 import android.widget.LinearLayout;
 import arcanelux.library.activity.AdlibrActionBarActivity;
 
+import com.tinicube.base.function.BASE_C;
 import com.tinicube.tinicube.common.C;
 import com.tinicube.tinicube.main.MainFragment;
 
@@ -32,7 +33,7 @@ public class MainActivity extends AdlibrActionBarActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		showAd = false;
 		super.onCreate(savedInstanceState);
-		useCustomFont(C.CUSTOM_FONT_FILE_NAME);
+		useCustomFont(BASE_C.CUSTOM_FONT_FILE_NAME);
 		setContentView(R.layout.main_activity);
 		
 		// ActionBar 설정
@@ -40,7 +41,7 @@ public class MainActivity extends AdlibrActionBarActivity {
 		mActionBar.setIcon(new ColorDrawable(getResources().getColor(android.R.color.transparent))); 
 		mActionBar.setDisplayShowCustomEnabled(true);
 		mActionBar.setDisplayUseLogoEnabled(false);
-		View viewActionBar = inflateWithCustomFont(mInflater, R.layout.actionbar_main, C.CUSTOM_FONT_TITILLIUM_2);
+		View viewActionBar = inflateWithCustomFont(mInflater, R.layout.actionbar_main, BASE_C.CUSTOM_FONT_TITILLIUM_2);
 		mActionBar.setCustomView(viewActionBar);
 		mActionBar.setTitle("");
 		
@@ -112,7 +113,7 @@ public class MainActivity extends AdlibrActionBarActivity {
 	private void selectItem(int position) {
 		switch(position){
 		case 0:
-			MainFragment fragment = new MainFragment(mContext, C.CUSTOM_FONT_FILE_NAME);
+			MainFragment fragment = new MainFragment(mContext, BASE_C.CUSTOM_FONT_FILE_NAME);
 			FragmentManager fragmentManager = getSupportFragmentManager();
 			fragmentManager.beginTransaction().replace(R.id.content_frame, fragment).commit();
 	
@@ -124,13 +125,13 @@ public class MainActivity extends AdlibrActionBarActivity {
 //		ComicListFragment fragment = null;
 //		if(position == 0){
 //			DataCategory1 curCategory1 = mDescription.getDataCategory1List().get(0);
-//			fragment = new ComicListFragment("업데이트 순으로 보기", curCategory1.getDescription(), C.URL_BASE + curCategory1.getCategory1LogoImage().getUrl(), mDescription.getPostList());
+//			fragment = new ComicListFragment("업데이트 순으로 보기", curCategory1.getDescription(), BASE_C.URL_BASE + curCategory1.getCategory1LogoImage().getUrl(), mDescription.getPostList());
 //		} else{
 //			position = position - 1;
 //			DataCategory1 curCategory1 = mDataCategory1List.get(position);
 //			Log.d(TAG, curCategory1.getTitle());
 //			
-//			fragment = new ComicListFragment(curCategory1.getTitle(), curCategory1.getDescription(), C.URL_BASE + curCategory1.getCategory1LogoImage().getUrl(), curCategory1.getPostList());				
+//			fragment = new ComicListFragment(curCategory1.getTitle(), curCategory1.getDescription(), BASE_C.URL_BASE + curCategory1.getCategory1LogoImage().getUrl(), curCategory1.getPostList());				
 //		}
 //		FragmentManager fragmentManager = getSupportFragmentManager();
 //		fragmentManager.beginTransaction().replace(R.id.content_frame, fragment).commit();

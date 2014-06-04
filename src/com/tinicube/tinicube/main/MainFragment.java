@@ -19,6 +19,7 @@ import arcanelux.library.baseclass.BasePagerAdapter;
 
 import com.androidquery.callback.ImageOptions;
 import com.tinicube.base.data.DataUser;
+import com.tinicube.base.function.BASE_C;
 import com.tinicube.comicbase.data.work.DataChapter;
 import com.tinicube.comicbase.data.work.DataWork;
 import com.tinicube.tinicube.R;
@@ -70,7 +71,7 @@ public class MainFragment extends BaseFragment {
 		mCoverImageList.add(new DataCoverImage());
 		mCoverImageList.add(new DataCoverImage());
 		mCoverImageViewPager = (ViewPager) view.findViewById(R.id.vpMainCover);
-		mCoverImagePagerAdapter = new ImageCoverPagerAdapter(mContext, mCoverImageList, C.CUSTOM_FONT_FILE_NAME);
+		mCoverImagePagerAdapter = new ImageCoverPagerAdapter(mContext, mCoverImageList, BASE_C.CUSTOM_FONT_FILE_NAME);
 		mCoverImageViewPager.setAdapter(mCoverImagePagerAdapter);
 		mIndicator = (CirclePageIndicator) view.findViewById(R.id.indicatorMainCover);
 		mIndicator.setViewPager(mCoverImageViewPager);
@@ -123,9 +124,9 @@ public class MainFragment extends BaseFragment {
 			ImageOptions options = new ImageOptions();
 			options.round = (int)(10);
 			if(i % 2 == 0) {
-				aq.id(ivWorkCover).image("http://cfile9.uf.tistory.com/image/2133F83651F15FCB389DB0", options);
+				aq.id(ivWorkCover).image("http://kkoksara.com/def/sample01.png", options);
 			} else {
-				aq.id(ivWorkCover).image("http://img.sbs.co.kr/newsnet/etv/upload/2012/12/22/30000204526_700.jpg", options);	
+				aq.id(ivWorkCover).image("http://kkoksara.com/def/sample02.png", options);	
 			}
 			llNewWork.addView(newWorkView);
 		}
@@ -145,9 +146,9 @@ public class MainFragment extends BaseFragment {
 			ImageOptions options = new ImageOptions();
 			options.round = (int)(10);
 			if(i % 2 == 0) {
-				aq.id(ivWorkCover).image("http://cfile9.uf.tistory.com/image/2133F83651F15FCB389DB0", options);
+				aq.id(ivWorkCover).image("http://kkoksara.com/def/sample01.png", options);
 			} else {
-				aq.id(ivWorkCover).image("http://img.sbs.co.kr/newsnet/etv/upload/2012/12/22/30000204526_700.jpg", options);	
+				aq.id(ivWorkCover).image("http://kkoksara.com/def/sample02.png", options);	
 			}
 			llPopularWork.addView(newWorkView);
 		}
