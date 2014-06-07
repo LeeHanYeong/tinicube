@@ -15,24 +15,14 @@ import com.tinicube.base.function.BASE_Pref;
 import com.tinicube.comicbase.TiniCubeComicChapterListActivity;
 import com.tinicube.comicbase.data.work.DataWorkAndChapters;
 
-public class ComicInitializeTask extends BaseAsyncTask {
+public class ChapterInitializeTask extends BaseAsyncTask {
 	private String workId;
-	private String chapterId;
-	private boolean fromChapter = false;
-	
 	private String resultString;
 	private boolean loadSuccess;
 	
-	public ComicInitializeTask(Context context, String title, boolean showDialog, String workId) {
+	public ChapterInitializeTask(Context context, String title, boolean showDialog, String workId) {
 		super(context, title, showDialog);
 		this.workId = workId;
-	}
-	
-	public ComicInitializeTask(Context context, String title, boolean showDialog, String workId, String chapterId) {
-		super(context, title, showDialog);
-		this.workId = workId;
-		this.chapterId = chapterId;
-		this.fromChapter = true;
 	}
 	
 	@Override
@@ -68,10 +58,6 @@ public class ComicInitializeTask extends BaseAsyncTask {
 			Intent intent = null;
 //			intent = new Intent(mContext, ComicChapterListActivity.class);
 			intent = new Intent(mContext, TiniCubeComicChapterListActivity.class);
-			if(fromChapter) {
-				intent.putExtra("from", "chapter");
-				intent.putExtra("chapterId", chapterId);
-			}
 			((Activity) mContext).startActivity(intent);
 		} else{
 			Toast.makeText(mContext, "서버와의 통신에 실패했습니다", Toast.LENGTH_SHORT).show();

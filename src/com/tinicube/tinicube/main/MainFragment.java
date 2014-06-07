@@ -35,6 +35,7 @@ import com.viewpagerindicator.PageIndicator;
 
 public class MainFragment extends BaseFragment { 
 	// OnClickListener
+	private ChapterClickListener mChapterClickListener;
 	private WorkClickListener mWorkClickListener;
 	
 	// CoverImage ViewPager
@@ -71,6 +72,7 @@ public class MainFragment extends BaseFragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View view = inflateWithCustomFont(inflater, container, savedInstanceState, R.layout.main_fragment);
 		// OnClickListener 세팅
+		mChapterClickListener = new ChapterClickListener();
 		mWorkClickListener = new WorkClickListener();
 		
 		// 리스트 아이템 세팅
@@ -120,7 +122,9 @@ public class MainFragment extends BaseFragment {
 		@Override
 		public void onClick(View v) {
 			DataChapter chapter = (DataChapter) v.getTag();
-			
+			String workId = chapter.getWorkId() + "";
+			String chapterId = chapter.getId() + "";
+			new ComicInitializeTask(mContext, "로딩 중...", true, workId, chapterId).execute();
 		}
 	}
 	
@@ -224,6 +228,8 @@ public class MainFragment extends BaseFragment {
 			tvWorkTitle.setText(workTitle);
 			tvChapterTitle.setText(chapterTitle);
 
+			recentItemView.setTag(chapter);
+			recentItemView.setOnClickListener(mChapterClickListener);
 			llRecentUpdate.addView(recentItemView);
 		}
 
