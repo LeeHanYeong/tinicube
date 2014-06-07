@@ -35,6 +35,7 @@
             android:id="@+id/navigationDrawerViewUserInfo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:visibility="gone"
             android:background="@drawable/menu_userinfo_bg"
             android:gravity="center_vertical"
             android:paddingBottom="8dp"
@@ -50,7 +51,7 @@
                 android:orientation="vertical" >
 
                 <TextView
-                    android:id="@+id/navigationDrawerUserInfoNickname"
+                    android:id="@+id/tvNavigationDrawerUserInfoNickname"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Username"
@@ -58,7 +59,7 @@
                     android:textSize="16dp" />
 
                 <TextView
-                    android:id="@+id/navigationDrawerUserInfoEmail"
+                    android:id="@+id/tvNavigationDrawerUserInfoEmail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Admin@tinicube.com"

@@ -112,7 +112,7 @@ public class DrawerAdapter extends BaseExpandableListAdapter {
 
 	@Override
 	public boolean isChildSelectable(int groupPosition, int childPosition) {
-		return false;
+		return true;
 	}
 	
 	/** Inflate시 CustomFont를 적용한 View를 리턴해주는 함수 **/

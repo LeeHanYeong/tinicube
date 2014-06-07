@@ -89,7 +89,9 @@ public class MainFragment extends BaseFragment {
 			String title = i + chapter.getTitle();
 			View recentItemView = inflateWithCustomFont(inflater, container, R.layout.listitem_chapter);
 			if(i % 2 == 0){
-				recentItemView.setBackgroundColor(getResources().getColor(R.color.common_background_gray));
+				recentItemView.setBackgroundColor(getResources().getColor(R.color.main_listitem_color2));
+			} else {
+				recentItemView.setBackgroundColor(getResources().getColor(R.color.main_listitem_color1));
 			}
 			ImageView ivChapterThumbnail = (ImageView) recentItemView.findViewById(R.id.ivListItemChapterThumbnail);
 			TextView tvWorkTitle = (TextView) recentItemView.findViewById(R.id.tvListItemChapterTitle);

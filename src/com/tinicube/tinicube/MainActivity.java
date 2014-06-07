@@ -9,25 +9,33 @@ import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ExpandableListView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 import arcanelux.library.activity.AdlibrActionBarActivity;
 
+import com.tinicube.base.data.DataUser;
 import com.tinicube.base.function.BASE_C;
+import com.tinicube.base.function.BASE_Pref;
 import com.tinicube.tinicube.common.C;
 import com.tinicube.tinicube.main.MainFragment;
 
 public class MainActivity extends AdlibrActionBarActivity {
 	private DrawerLayout mDrawerLayout;
 	private LinearLayout mDrawerView;
-	private View mDrawerViewUserInfo;
 	private ExpandableListView mDrawerList;
 	private ArrayList<DrawerGroup> mDrawerGroupList;
 	private DrawerAdapter mDrawerAdapter;
 	private ActionBarDrawerToggle mDrawerToggle;
+	
+	// DrawerViewUserInfo
+	private View mDrawerViewUserInfo;
+	private TextView tvNickname, tvEmail;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +52,23 @@ public class MainActivity extends AdlibrActionBarActivity {
 		View viewActionBar = inflateWithCustomFont(mInflater, R.layout.actionbar_main, BASE_C.CUSTOM_FONT_TITILLIUM_2);
 		mActionBar.setCustomView(viewActionBar);
 		mActionBar.setTitle("");
+		
+		// DrawerViewUserInfo 설정
+		mDrawerViewUserInfo = (View) findViewById(R.id.navigationDrawerViewUserInfo);
+		tvNickname = (TextView) mDrawerViewUserInfo.findViewById(R.id.tvNavigationDrawerUserInfoNickname);
+		tvEmail = (TextView) mDrawerViewUserInfo.findViewById(R.id.tvNavigationDrawerUserInfoEmail);
+		
+		if(isLogin()){
+			DataUser curLoginUser = new DataUser(BASE_Pref.getLoginUserInfoJSONObject(mContext));
+			String nickname = curLoginUser.getNickname();
+			String email = curLoginUser.getUsername();
+			
+			tvNickname.setText(nickname);
+			tvEmail.setText(email);
+			mDrawerViewUserInfo.setVisibility(View.VISIBLE);
+		} else {
+			mDrawerViewUserInfo.setVisibility(View.GONE);
+		}
 		
 		// DrawerGroup, DrawerItem 설정
 		mDrawerGroupList = new ArrayList<DrawerGroup>();
@@ -73,7 +98,8 @@ public class MainActivity extends AdlibrActionBarActivity {
 		// NavigationDrawer의 ListView에 Adapter 연결, 클릭리스너 할당
 		mDrawerAdapter = new DrawerAdapter(mContext, mDrawerGroupList);
 		mDrawerList.setAdapter(mDrawerAdapter);
-//		mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
+		mDrawerList.setChoiceMode(ExpandableListView.CHOICE_MODE_SINGLE);
+		
 		
 		// NavigationDrawer의 ExpandableListView에 Expand설정
 		mDrawerList.expandGroup(0);
@@ -104,8 +130,48 @@ public class MainActivity extends AdlibrActionBarActivity {
 		}
 	}
 	
+	// NavigationDrawer Group Click Listener
+	private class DrawerGroupClickListener implements ExpandableListView.OnGroupClickListener {
+		
+		@Override
+		public boolean onGroupClick(ExpandableListView parent, View v, int groupPosition, long id) {
+			Log.d(TAG, "Group Click, GroupPos : " + groupPosition);
+			DrawerGroup curGroup = mDrawerGroupList.get(groupPosition);
+			return false;
+		}
+	}
 	
-	
+	// NavigationDrawer Item Click Listener	
+	private class DrawerItemClickListener implements ExpandableListView.OnChildClickListener {
+		@Override
+		public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
+			Log.d(TAG, "Chilc Click, GroupPos : " + groupPosition + ", ChildPos : " + childPosition);
+			DrawerGroup curGroup = mDrawerGroupList.get(groupPosition);
+			DrawerItem curItem = curGroup.getDrawerItemList().get(childPosition);
+			
+			// Category 그룹
+			if(curGroup.getTitle().equals("Category")){
+				if(curItem.getTitle().equals("홈")){
+					Toast.makeText(mContext, "홈", Toast.LENGTH_SHORT).show();
+				} else if(curItem.getTitle().equals("전체 작품 보기")){
+					Toast.makeText(mContext, "전체 작품 보기", Toast.LENGTH_SHORT).show();
+				} else if(curItem.getTitle().equals("전체 작가 보기")){
+					Toast.makeText(mContext, "전체 작가 보기", Toast.LENGTH_SHORT).show();
+				} 
+			}
+			
+			// Settings 그룹
+			if(curGroup.getTitle().equals("Settings")){
+				if(curItem.getTitle().equals("로그인")){
+					Toast.makeText(mContext, "로그인", Toast.LENGTH_SHORT).show();
+				} else if(curItem.getTitle().equals("설정")){
+					Toast.makeText(mContext, "설정", Toast.LENGTH_SHORT).show();
+				}
+			}
+			return false;
+		}
+		
+	}
 	/** 
 	 * NavigationDrawer의 아이템 클릭시 발생하는 이벤트
 	 * 해당 Position의 Fragment를 만들어주며, 클릭 시 Drawer를 닫아줌
@@ -194,4 +260,18 @@ public class MainActivity extends AdlibrActionBarActivity {
 		//        }
 		return super.onOptionsItemSelected(item);
 	}
+	
+	
+	private boolean isLogin(){
+		return BASE_Pref.hasLoginUserInfo(mContext);
+	}
+
+	@Override
+	protected void onResume() {
+		mDrawerList.setOnGroupClickListener(new DrawerGroupClickListener());
+		mDrawerList.setOnChildClickListener(new DrawerItemClickListener());
+		super.onResume();
+	}
+	
+	
 }

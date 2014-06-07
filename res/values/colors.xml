@@ -10,4 +10,9 @@
     
     <color name="actionbar_background">#FF2980B9</color>
     
+    
+    <!-- Main -->
+    <color name="main_listitem_color1">#FF2c3e50</color>
+    <color name="main_listitem_color2">#FF34495e</color>
+    
 </resources>

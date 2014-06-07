@@ -13,10 +13,11 @@ import arcanelux.library.ArcaneluxFunction;
 import arcanelux.library.activity.AdlibrLoadingActivity;
 
 import com.tinicube.base.function.BASE_C;
-import com.tinicube.base.function.Pref;
+import com.tinicube.base.function.BASE_Pref;
 import com.tinicube.tinicube.MainActivity;
 import com.tinicube.tinicube.R;
 import com.tinicube.tinicube.common.C;
+import com.tinicube.tinicube.common.Pref;
 
 public class LoadingActivity extends AdlibrLoadingActivity {
 	private TextView tvLoadingTitle;
@@ -34,10 +35,7 @@ public class LoadingActivity extends AdlibrLoadingActivity {
 		ArcaneluxFunction.setTypeface(mContext, tvLoadingTitle, BASE_C.CUSTOM_FONT_TITILLIUM_2);
 		ArcaneluxFunction.setTypeface(mContext, tvLoadingMessage, BASE_C.CUSTOM_FONT_TITILLIUM_2);
 		
-		Intent intent = new Intent(LoadingActivity.this, MainActivity.class);
-		startActivity(intent);
-		finish();
-//		new TiniCubeInitializeTask(mContext, "초기화", false).execute();
+		new TiniCubeInitializeTask(mContext, "초기화", false).execute();
 	}
 	
 	class TiniCubeVersionCheckTask extends VersionCheckTask {
@@ -66,6 +64,7 @@ public class LoadingActivity extends AdlibrLoadingActivity {
 		}
 		@Override
 		protected Integer doInBackground(Void... params) {
+			/** MainFragment 표시내용 받아옴 **/
 			strJSONObjectRecentUpdateChapterList = postRequest(C.API_RECENT_UPDATE_CHAPTER_LIST);
 			strJSONObjectNewWorkList = postRequest(C.API_NEWWORK_LIST);
 			strJSONObjectPopWorkList = postRequest(C.API_POPWORK_LIST);
@@ -99,13 +98,12 @@ public class LoadingActivity extends AdlibrLoadingActivity {
 		protected void onPostExecute(Integer result) {
 			super.onPostExecute(result);
 			try {
+				/** MainFragment 에 사용할 내용 JSONObject validation **/
 				JSONObject jsonObjectRecentUpdateChapterList = new JSONObject(strJSONObjectRecentUpdateChapterList);
 				JSONObject jsonObjectNewWorkList = new JSONObject(strJSONObjectNewWorkList);
 				JSONObject jsonObjectPopWorkList = new JSONObject(strJSONObjectPopWorkList);
 				JSONObject jsonObjectNewAuthorList = new JSONObject(strJSONObjectNewAuthorList);
 				JSONObject jsonObjectPopAuthorList = new JSONObject(strJSONObjectPopAuthorList);
-				
-				
 				Pref.setJsonObjectString(mContext, C.JSONDATA_RECENT_UPDATE_CHAPTER_LIST, strJSONObjectRecentUpdateChapterList);
 				
 				Intent intent = new Intent(LoadingActivity.this, MainActivity.class);
