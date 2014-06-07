@@ -33,7 +33,32 @@
             </intent-filter>
         </activity>
         <activity android:name="com.tinicube.tinicube.MainActivity" />
+        <activity android:name="com.tinicube.tinicube.comic.ComicChapterListActivity" />
+        <activity android:name="com.tinicube.tinicube.comic.ComicChapterViewActivity" />
         <activity android:name="com.tinicube.base.login.TiniCubeLoginActivity"/>
+        <activity android:name="com.tinicube.comicbase.TiniCubeComicChapterListActivity"/>
+        <activity android:name="com.tinicube.comicbase.TiniCubeComicChapterViewActivity"/>
+        <activity android:name="com.tinicube.comicbase.TiniCubeComicChapterView2Activity"/>
+        <activity android:name="com.tinicube.comicbase.commentrating.TiniCubeCommentRatingActivity" />
+        
+        <!-- Adlibr -->
+        <activity
+            android:name="com.mocoplex.adlib.AdlibDialogActivity"
+            android:configChanges="orientation|keyboard|keyboardHidden"
+            android:theme="@android:style/Theme.Translucent" />
+        <activity
+            android:name="com.mocoplex.adlib.AdlibWebBrowserActivity"
+            android:configChanges="orientation|keyboard|keyboardHidden" />
+        <activity
+            android:name="com.mocoplex.adlib.AdlibVideoPlayer"
+            android:configChanges="orientation|keyboard|keyboardHidden"
+            android:theme="@android:style/Theme.NoTitleBar" />
+        <!-- Adam -->
+        <activity
+            android:name="net.daum.adam.publisher.impl.AdInterstitialActivity"
+            android:configChanges="orientation|screenSize"
+            android:screenOrientation="portrait" >
+        </activity>
     </application>
 
 </manifest>

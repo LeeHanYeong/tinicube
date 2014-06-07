@@ -104,7 +104,12 @@ public class LoadingActivity extends AdlibrLoadingActivity {
 				JSONObject jsonObjectPopWorkList = new JSONObject(strJSONObjectPopWorkList);
 				JSONObject jsonObjectNewAuthorList = new JSONObject(strJSONObjectNewAuthorList);
 				JSONObject jsonObjectPopAuthorList = new JSONObject(strJSONObjectPopAuthorList);
+
 				Pref.setJsonObjectString(mContext, C.JSONDATA_RECENT_UPDATE_CHAPTER_LIST, strJSONObjectRecentUpdateChapterList);
+				Pref.setJsonObjectString(mContext, C.JSONDATA_NEWWORK_LIST, strJSONObjectNewWorkList);
+				Pref.setJsonObjectString(mContext, C.JSONDATA_POPWORK_LIST, strJSONObjectPopWorkList);
+				Pref.setJsonObjectString(mContext, C.JSONDATA_NEWAUTHOR_LIST, strJSONObjectNewAuthorList);
+				Pref.setJsonObjectString(mContext, C.JSONDATA_POPAUTHOR_LIST, strJSONObjectPopAuthorList);
 				
 				Intent intent = new Intent(LoadingActivity.this, MainActivity.class);
 				startActivity(intent);

@@ -1,18 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     
-    <color name="text_black">#FF000000</color>
-    <color name="text_darkgray">#FF2C3E50</color>
-    <color name="text_gray">#FF7F8C8D</color>
-        
-    <color name="common_background_gray">#FFECF0F1</color>
-    <color name="common_line_gray">#FFBDC3C7</color>
+   
     
-    <color name="actionbar_background">#FF2980B9</color>
-    
-    
-    <!-- Main -->
-    <color name="main_listitem_color1">#FF2c3e50</color>
-    <color name="main_listitem_color2">#FF34495e</color>
     
 </resources>

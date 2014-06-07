@@ -22,8 +22,8 @@ public class C {
 	/**
 	 * API URL
 	 */
-	public static final String URL_BASE = "http://192.168.56.1:8000/";
-	public static final String API_BASE = URL_BASE + "api/";
+	public static final String URL_BASE = "http://192.168.56.1:8000";
+	public static final String API_BASE = URL_BASE + "/api/";
 	public static final String API_RECENT_UPDATE_CHAPTER_LIST = API_BASE + "tinicube/chapter/recentupdatelist/";
 	public static final String API_NEWWORK_LIST = API_BASE + "tinicube/work/newlist/";
 	public static final String API_POPWORK_LIST = API_BASE + "tinicube/work/poplist/";

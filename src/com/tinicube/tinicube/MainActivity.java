@@ -161,7 +161,7 @@ public class MainActivity extends AdlibrActionBarActivity {
 					Intent intent = new Intent(MainActivity.this, TiniCubeLoginActivity.class);
 					startActivityForResult(intent, BASE_C.REQ_LOGIN);
 				} else if(curItem.getTitle().equals("로그아웃")){
-					Toast.makeText(mContext, "로그아웃", Toast.LENGTH_SHORT).show();
+//					Toast.makeText(mContext, "로그아웃", Toast.LENGTH_SHORT).show();
 					logout();
 				} else if(curItem.getTitle().equals("설정")){
 					Toast.makeText(mContext, "설정", Toast.LENGTH_SHORT).show();
@@ -183,7 +183,7 @@ public class MainActivity extends AdlibrActionBarActivity {
 
 			// update selected item and title, then close the drawer			
 			mDrawerList.setItemChecked(position, true);
-			mDrawerLayout.closeDrawer(mDrawerView);	
+			closeDrawer();
 			break;
 		}
 		//		ComicListFragment fragment = null;
@@ -311,10 +311,16 @@ public class MainActivity extends AdlibrActionBarActivity {
 			mDrawerList.expandGroup(i);	
 		}
 	}
+	
+	private void closeDrawer(){
+		mDrawerLayout.closeDrawer(mDrawerView);
+	}
 
 	private void logout(){
 		BASE_Pref.removeLoginInfo(mContext);
 		setCategoryItem();
+		Toast.makeText(mContext, "로그아웃 되었습니다", Toast.LENGTH_SHORT).show();
+		closeDrawer();
 	}
 
 	@Override
@@ -335,6 +341,7 @@ public class MainActivity extends AdlibrActionBarActivity {
 				String strJsonObjectLoginUserInfo = data.getStringExtra("strJsonObjectLoginUserInfo");
 				setCategoryItem();
 				Log.d(TAG, "onActivityResult, SessionKey : " + sessionKey);
+				Toast.makeText(mContext, "로그인 되었습니다", Toast.LENGTH_SHORT).show();
 			}
 			break;
 		}

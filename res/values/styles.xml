@@ -18,12 +18,7 @@
     </style>
     
     
-    <!-- Common -->
-    <style name="CommonLine">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">1dp</item>
-        <item name="android:background">@color/common_line_gray</item>
-    </style>
+   
     
     <!-- Main -->
     <style name="tvMainListItemMore">
