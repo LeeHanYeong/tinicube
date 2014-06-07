@@ -12,10 +12,11 @@ public class C {
 	public static final int DRAWERITEM_HOME = 10000;
 	public static final int DRAWERITEM_ALL_WORKS = 10001;
 	public static final int DRAWERITEM_ALL_AUTHORS = 10002;
-	public static final int DRAWERITEM_FAVORITE = 10003;
-	public static final int DRAWERITEM_SIGNIN = 10004;
-	public static final int DRAWERITEM_SIGNOUT = 10005;
-	public static final int DRAWERITEM_SETTING = 10006;
+	public static final int DRAWERITEM_FAVORITE_WORKS = 10003;
+	public static final int DRAWERITEM_FAVORITE_AUTHORS = 10004;
+	public static final int DRAWERITEM_SIGNIN = 10005;
+	public static final int DRAWERITEM_SIGNOUT = 10006;
+	public static final int DRAWERITEM_SETTING = 10007;
 	
 
 	/**

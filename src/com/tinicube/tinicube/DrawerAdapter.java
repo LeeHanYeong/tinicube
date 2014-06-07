@@ -3,6 +3,8 @@ package com.tinicube.tinicube;
 import java.util.ArrayList;
 
 import android.content.Context;
+import android.database.DataSetObservable;
+import android.database.DataSetObserver;
 import android.graphics.Typeface;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -24,6 +26,8 @@ public class DrawerAdapter extends BaseExpandableListAdapter {
 	private Context mContext;
 	protected AQuery aq;
 	private ArrayList<DrawerGroup> mDrawerGroupList;
+	
+	private DataSetObservable dataSetObservable = new DataSetObservable();
 	
 	public DrawerAdapter(Context context, ArrayList<DrawerGroup> drawerGroupList) {
 		super();
@@ -153,5 +157,34 @@ public class DrawerAdapter extends BaseExpandableListAdapter {
 			}
 		}
 	}
+
+
+	
+//	private DataSetObservable getDataSetObservable(){
+//		return dataSetObservable;
+//	}
+//	@Override
+//	public void notifyDataSetChanged() {
+////		super.notifyDataSetChanged();
+//		this.getDataSetObservable().notifyChanged();
+//	}
+//	@Override
+//	public void notifyDataSetInvalidated() {
+////		super.notifyDataSetInvalidated();
+//		this.getDataSetObservable().notifyInvalidated();
+//	}
+//
+//	@Override
+//	public void registerDataSetObserver(DataSetObserver observer) {
+////		super.registerDataSetObserver(observer);
+//		this.getDataSetObservable().registerObserver(observer);
+//	}
+//
+//	@Override
+//	public void unregisterDataSetObserver(DataSetObserver observer) {
+////		super.unregisterDataSetObserver(observer);
+//		this.getDataSetObservable().unregisterObserver(observer);
+//	}
+	
 
 }

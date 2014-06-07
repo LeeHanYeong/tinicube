@@ -33,6 +33,7 @@
             </intent-filter>
         </activity>
         <activity android:name="com.tinicube.tinicube.MainActivity" />
+        <activity android:name="com.tinicube.base.login.TiniCubeLoginActivity"/>
     </application>
 
 </manifest>
