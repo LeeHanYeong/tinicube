@@ -23,9 +23,9 @@ import arcanelux.library.baseclass.BasePagerAdapter;
 import com.androidquery.callback.ImageOptions;
 import com.tinicube.base.data.DataAuthorInfo;
 import com.tinicube.base.data.DataUser;
+import com.tinicube.base.data.DataWork;
 import com.tinicube.base.function.BASE_C;
 import com.tinicube.comicbase.data.work.DataChapter;
-import com.tinicube.comicbase.data.work.DataWork;
 import com.tinicube.tinicube.R;
 import com.tinicube.tinicube.common.C;
 import com.tinicube.tinicube.common.Pref;
@@ -42,7 +42,7 @@ public class MainFragment extends BaseFragment {
 	private ViewPager mCoverImageViewPager;
 	private ImageCoverPagerAdapter mCoverImagePagerAdapter;
 	private PageIndicator mIndicator;
-	private ArrayList<DataCoverImage> mCoverImageList;
+	private ArrayList<DataWork> mCoverImageList;
 
 	// Recent Update Items
 	private LinearLayout llRecentUpdate;
@@ -86,12 +86,12 @@ public class MainFragment extends BaseFragment {
 	/**
 	 * CoverImage ViewPager의 Adapater
 	 */
-	class ImageCoverPagerAdapter extends BasePagerAdapter<DataCoverImage> {
-		private ArrayList<DataCoverImage> mCoverImageList;
+	class ImageCoverPagerAdapter extends BasePagerAdapter<DataWork> {
+		private ArrayList<DataWork> mWorkList;
 
-		public ImageCoverPagerAdapter(Context context, ArrayList<DataCoverImage> objects, String fontFileName) {
+		public ImageCoverPagerAdapter(Context context, ArrayList<DataWork> objects, String fontFileName) {
 			super(context, objects, fontFileName);
-			mCoverImageList = objects;
+			mWorkList = objects;
 		}
 
 		@Override
@@ -100,23 +100,15 @@ public class MainFragment extends BaseFragment {
 			View curView = inflateWithCustomFont(inflater, R.layout.pageritem_maincoverimage);
 			ImageView ivCover = (ImageView) curView.findViewById(R.id.ivPagerItemMainCoverImage);
 
-			DataCoverImage curCoverImage = mCoverImageList.get(position);
-			String url = curCoverImage.getCoverImage().getUrl();
-
-			ImageOptions options = new ImageOptions();
-			options.round = (int)(15 * 2);
-			if(position % 2 == 0){
-				aq.id(ivCover).image("https://pbs.twimg.com/profile_images/2822166592/41ad73223bc94c1657947a97321ed7d7.jpeg", options);	
-			} else {
-				aq.id(ivCover).image("http://cfile4.uf.tistory.com/original/263C824351DF1CB85F7675", options);	
-
-			}
-
-
+			DataWork curCoverImage = mWorkList.get(position);
+			String url = C.URL_BASE + curCoverImage.getImageCoverPager().getUrl();
+			
+			aq.id(ivCover).image(url);
 			((ViewPager) container).addView(curView, 0);
 			return curView;
 		}
 	}
+	
 	
 	class ChapterClickListener implements OnClickListener {
 		@Override
@@ -127,13 +119,18 @@ public class MainFragment extends BaseFragment {
 			new ComicInitializeTask(mContext, "로딩 중...", true, workId, chapterId).execute();
 		}
 	}
-	
 	class WorkClickListener implements OnClickListener {
 		@Override
 		public void onClick(View v) {
 			DataWork work = (DataWork) v.getTag();
 			String workId = work.getId() + "";
 			new ComicInitializeTask(mContext, "로딩 중...", true, workId).execute();
+		}
+	}
+	class AuthorClickListener implements OnClickListener {
+		@Override
+		public void onClick(View v) {
+			
 		}
 	}
 
@@ -182,6 +179,8 @@ public class MainFragment extends BaseFragment {
 				DataUser curUser = new DataUser(jsonObjectCurAuthor);
 				mPopularAuthorList.add(curUser);
 			}
+			mCoverImageList = new ArrayList<DataWork>();
+			mCoverImageList.addAll(mPopularWorkList);
 
 		} catch (JSONException e) {
 			e.printStackTrace();
@@ -190,12 +189,6 @@ public class MainFragment extends BaseFragment {
 
 	private void initMainList(View view, LayoutInflater inflater, ViewGroup container){
 		// CoverImage ViewPager 설정
-		mCoverImageList = new ArrayList<DataCoverImage>();
-		mCoverImageList.add(new DataCoverImage());
-		mCoverImageList.add(new DataCoverImage());
-		mCoverImageList.add(new DataCoverImage());
-		mCoverImageList.add(new DataCoverImage());
-		mCoverImageList.add(new DataCoverImage());
 		mCoverImageViewPager = (ViewPager) view.findViewById(R.id.vpMainCover);
 		mCoverImagePagerAdapter = new ImageCoverPagerAdapter(mContext, mCoverImageList, BASE_C.CUSTOM_FONT_FILE_NAME);
 		mCoverImageViewPager.setAdapter(mCoverImagePagerAdapter);
@@ -221,9 +214,6 @@ public class MainFragment extends BaseFragment {
 			TextView tvWorkTitle = (TextView) recentItemView.findViewById(R.id.tvListItemChapterTitle);
 			TextView tvChapterTitle = (TextView) recentItemView.findViewById(R.id.tvListItemChapterDescription);
 
-			ImageOptions options = new ImageOptions();
-			options.round = (int)(10);
-
 			aq.id(ivChapterThumbnail).image(urlThumbnail);
 			tvWorkTitle.setText(workTitle);
 			tvChapterTitle.setText(chapterTitle);
@@ -237,10 +227,10 @@ public class MainFragment extends BaseFragment {
 		llNewWork = (LinearLayout) view.findViewById(R.id.llMainNewWork);
 		for(int i=0; i<mNewWorkList.size(); i++) {
 			DataWork work = mNewWorkList.get(i);
-			String urlCover = C.URL_BASE + work.getCover().getUrl();
+			String urlCover = C.URL_BASE + work.getImageCoverSmall().getUrl();
 			String workTitle = work.getTitle();
 			String authorTitle = work.getAuthor();
-			String workDescription = work.getDescription();
+			String workDescription = work.getDescriptionSimple();
 
 			View newWorkView = inflateWithCustomFont(inflater, container, R.layout.listitem_work);
 			if(i % 2 == 0){
@@ -267,10 +257,10 @@ public class MainFragment extends BaseFragment {
 		llPopularWork = (LinearLayout) view.findViewById(R.id.llMainPopularWork);
 		for(int i=0; i<mPopularWorkList.size(); i++) {
 			DataWork work = mPopularWorkList.get(i);
-			String urlCover = C.URL_BASE + work.getCover().getUrl();
+			String urlCover = C.URL_BASE + work.getImageCoverSmall().getUrl();
 			String workTitle = work.getTitle();
 			String authorTitle = work.getAuthor();
-			String workDescription = work.getDescription();
+			String workDescription = work.getDescriptionSimple();
 			View popWorkView = inflateWithCustomFont(inflater, container, R.layout.listitem_work);
 			if(i % 2 == 0){
 				popWorkView.setBackgroundColor(getResources().getColor(R.color.listitem_color1));
