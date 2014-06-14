@@ -38,7 +38,7 @@ public class ComicInitializeTask extends BaseAsyncTask {
 	@Override
 	protected Integer doInBackground(Void... params) {
 		try {
-			Thread.sleep(2000);
+			Thread.sleep(100);
 		} catch (InterruptedException e1) {
 			e1.printStackTrace();
 		}

@@ -64,6 +64,8 @@ public class MainFragment extends BaseFragment {
 	private LinearLayout llPopularAuthor;
 	private ArrayList<DataUser> mPopularAuthorList;
 
+	
+	
 	public MainFragment(Context context, String fontFileName) {
 		super(context, fontFileName);
 	}
@@ -289,6 +291,12 @@ public class MainFragment extends BaseFragment {
 			DataUser author = mNewAuthorList.get(i);
 			DataAuthorInfo authorInfo = author.getAuthorInfo();
 			View newAuthorView = inflateWithCustomFont(inflater, container, R.layout.listitem_author);
+			if(i % 2 == 0){
+				newAuthorView.setBackgroundColor(getResources().getColor(R.color.listitem_color1));
+			} else {
+				newAuthorView.setBackgroundColor(getResources().getColor(R.color.listitem_color2));
+			}
+			
 			String urlThumbnail = C.URL_BASE + authorInfo.getAuthorThumbnail().getUrl();
 			String authorNickname = authorInfo.getAuthorNickname();
 			String authorIntroduceSimple = authorInfo.getIntroduceSimple();
@@ -309,6 +317,12 @@ public class MainFragment extends BaseFragment {
 			DataUser author = mPopularAuthorList.get(i);
 			DataAuthorInfo authorInfo = author.getAuthorInfo();
 			View popAuthorView = inflateWithCustomFont(inflater, container, R.layout.listitem_author);
+			if(i % 2 == 0){
+				popAuthorView.setBackgroundColor(getResources().getColor(R.color.listitem_color1));
+			} else {
+				popAuthorView.setBackgroundColor(getResources().getColor(R.color.listitem_color2));
+			}
+			
 			String urlThumbnail = C.URL_BASE + authorInfo.getAuthorThumbnail().getUrl();
 			String authorNickname = authorInfo.getAuthorNickname();
 			String authorIntroduceSimple = authorInfo.getIntroduceSimple();
