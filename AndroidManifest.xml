@@ -39,6 +39,7 @@
         <activity android:name="com.tinicube.comicbase.TiniCubeComicChapterListActivity"/>
         <activity android:name="com.tinicube.comicbase.TiniCubeComicChapterViewActivity"/>
         <activity android:name="com.tinicube.comicbase.TiniCubeComicChapterView2Activity"/>
+        <activity android:name="com.tinicube.comicbase.author.TiniCubeComicAuthorActivity"/>
         <activity android:name="com.tinicube.comicbase.commentrating.TiniCubeCommentRatingActivity" />
         
         <!-- Adlibr -->

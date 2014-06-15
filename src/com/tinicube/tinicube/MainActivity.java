@@ -1,7 +1,13 @@
 package com.tinicube.tinicube;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.drawable.ColorDrawable;
@@ -13,21 +19,28 @@ import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.ExpandableListView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import arcanelux.library.activity.AdlibrActionBarActivity;
+import arcanelux.library.baseclass.BaseAsyncTask;
 
 import com.tinicube.base.data.DataUser;
 import com.tinicube.base.function.BASE_C;
 import com.tinicube.base.function.BASE_Pref;
 import com.tinicube.base.login.TiniCubeLoginActivity;
+import com.tinicube.tinicube.authorlist.AuthorListFragment;
 import com.tinicube.tinicube.common.C;
+import com.tinicube.tinicube.common.Pref;
 import com.tinicube.tinicube.main.MainFragment;
 
 public class MainActivity extends AdlibrActionBarActivity {
+	public static boolean confirmFinish = false;
+	
 	private DrawerLayout mDrawerLayout;
 	private LinearLayout mDrawerView;
 	private ExpandableListView mDrawerList;
@@ -83,6 +96,12 @@ public class MainActivity extends AdlibrActionBarActivity {
 		mDrawerLayout = (DrawerLayout) findViewById(R.id.navigationDrawerLayout);
 		mDrawerView = (LinearLayout) findViewById(R.id.navigationDrawerView);
 		mDrawerViewUserInfo = (View) findViewById(R.id.navigationDrawerViewUserInfo);
+		mDrawerViewUserInfo.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				selectItem(C.DRAWERITEM_USERINFO);
+			}
+		});
 		mDrawerList = (ExpandableListView) findViewById(R.id.navigationDrawerLeftDrawer);
 		// set a custom shadow that overlays the main content when the drawer opens
 		mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
@@ -120,7 +139,7 @@ public class MainActivity extends AdlibrActionBarActivity {
 		mDrawerLayout.setDrawerListener(mDrawerToggle);
 
 		if (savedInstanceState == null) {
-			selectItem(0);
+			selectItem(C.DRAWERITEM_HOME);
 		}
 	}
 
@@ -146,25 +165,25 @@ public class MainActivity extends AdlibrActionBarActivity {
 			// Category 그룹
 			if(curGroup.getTitle().equals("Category")){
 				if(curItem.getTitle().equals("홈")){
-					Toast.makeText(mContext, "홈", Toast.LENGTH_SHORT).show();
+					selectItem(C.DRAWERITEM_HOME);
 				} else if(curItem.getTitle().equals("전체 작품 보기")){
-					Toast.makeText(mContext, "전체 작품 보기", Toast.LENGTH_SHORT).show();
+					selectItem(C.DRAWERITEM_ALL_WORKS);
 				} else if(curItem.getTitle().equals("전체 작가 보기")){
-					Toast.makeText(mContext, "전체 작가 보기", Toast.LENGTH_SHORT).show();
-				} 
+					selectItem(C.DRAWERITEM_ALL_AUTHORS);
+				} else if(curItem.getTitle().equals("즐겨찾는 작품")){
+					selectItem(C.DRAWERITEM_FAVORITE_WORKS);
+				} else if(curItem.getTitle().equals("즐겨찾는 작가")){
+					selectItem(C.DRAWERITEM_FAVORITE_AUTHORS);
+				}
 			}
-
 			// Settings 그룹
 			if(curGroup.getTitle().equals("Settings")){
 				if(curItem.getTitle().equals("로그인")){
-					Toast.makeText(mContext, "로그인", Toast.LENGTH_SHORT).show();
-					Intent intent = new Intent(MainActivity.this, TiniCubeLoginActivity.class);
-					startActivityForResult(intent, BASE_C.REQ_LOGIN);
+					selectItem(C.DRAWERITEM_SIGNIN);
 				} else if(curItem.getTitle().equals("로그아웃")){
-//					Toast.makeText(mContext, "로그아웃", Toast.LENGTH_SHORT).show();
-					logout();
+					selectItem(C.DRAWERITEM_SIGNOUT);
 				} else if(curItem.getTitle().equals("설정")){
-					Toast.makeText(mContext, "설정", Toast.LENGTH_SHORT).show();
+					selectItem(C.DRAWERITEM_SETTING);
 				}
 			}
 			return false;
@@ -176,7 +195,10 @@ public class MainActivity extends AdlibrActionBarActivity {
 	 */
 	private void selectItem(int position) {
 		switch(position){
-		case 0:
+		case C.DRAWERITEM_USERINFO:
+			
+			break;
+		case C.DRAWERITEM_HOME:
 			MainFragment fragment = new MainFragment(mContext, BASE_C.CUSTOM_FONT_FILE_NAME);
 			FragmentManager fragmentManager = getSupportFragmentManager();
 			fragmentManager.beginTransaction().replace(R.id.content_frame, fragment).commit();
@@ -185,7 +207,28 @@ public class MainActivity extends AdlibrActionBarActivity {
 			mDrawerList.setItemChecked(position, true);
 			closeDrawer();
 			break;
-		}
+		case C.DRAWERITEM_ALL_WORKS:
+			break;
+		case C.DRAWERITEM_ALL_AUTHORS:
+			new AuthorListInitializeTask(mContext, BASE_C.API_ALL_AUTHOR_LIST, "작가 목록을 불러오는 중입니다...", "전체 작가 목록", "전체 작가 목록입니다").execute();
+			break;
+		case C.DRAWERITEM_FAVORITE_WORKS:
+			break;
+		case C.DRAWERITEM_FAVORITE_AUTHORS:
+			new AuthorListInitializeTask(mContext, BASE_C.API_FAVORITE_AUTHOR_LIST, "작가 목록을 불러오는 중입니다...", "즐겨찾는 작가 목록", "즐겨찾는 작가 목록입니다").execute();
+			break;
+		case C.DRAWERITEM_SIGNIN:
+			Intent intent = new Intent(MainActivity.this, TiniCubeLoginActivity.class);
+			startActivityForResult(intent, BASE_C.REQ_LOGIN);
+			break;
+		case C.DRAWERITEM_SIGNOUT:			
+			logout();
+			closeDrawer();
+			Toast.makeText(mContext, "로그아웃 되었습니다", Toast.LENGTH_SHORT).show();
+			break;
+		case C.DRAWERITEM_SETTING:
+			break;
+		}		
 		//		ComicListFragment fragment = null;
 		//		if(position == 0){
 		//			DataCategory1 curCategory1 = mDescription.getDataCategory1List().get(0);
@@ -333,6 +376,7 @@ public class MainActivity extends AdlibrActionBarActivity {
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
+		confirmFinish = false;
 		switch(requestCode){
 		// LoginActivity에 다녀온 후
 		case BASE_C.REQ_LOGIN:
@@ -347,7 +391,67 @@ public class MainActivity extends AdlibrActionBarActivity {
 		}
 	}
 
+	
+	/**
+	 * AuthorListFragment를 생성하는 Task
+	 * 		모든 작가 목록은 C.API_ALL_WORK_LIST
+	 * 		인기 작가 목록은 C.API_FAVORITE_WORK_LIST
+	 */
+	class AuthorListInitializeTask extends BaseAsyncTask {
+		private String mUrl;
+		private String mFragmentTitle, mFragmentDescription;
+		private String resultString;
 
+		public AuthorListInitializeTask(Context context, String url, String title, String fragmentTitle, String fragmentDescription) {
+			super(context, title);
+			this.mUrl = url;
+			this.mFragmentTitle = fragmentTitle;
+			this.mFragmentDescription = fragmentDescription;
+		}
 
+		@Override
+		protected Integer doInBackground(Void... params) {
+			HashMap<String, String> valuePair = new HashMap<String, String>();
+			valuePair.put("username", Pref.getUsername(mContext));
+			resultString = postRequest(mUrl, valuePair);
+			return super.doInBackground(params);
+		}
 
+		@Override
+		protected void onPostExecute(Integer result) {
+			super.onPostExecute(result);
+			try {
+				JSONObject jsonObjectAuthorList = new JSONObject(resultString);
+				JSONArray jsonArrayAuthorList = jsonObjectAuthorList.getJSONArray("authors");
+				
+				ArrayList<DataUser> dataUserList = new ArrayList<DataUser>();
+				dataUserList = new ArrayList<DataUser>();
+				dataUserList.clear();
+				for(int i=0; i<jsonArrayAuthorList.length(); i++){
+					JSONObject curJsonObjectCurUser = jsonArrayAuthorList.getJSONObject(i);
+					DataUser curUser = new DataUser(curJsonObjectCurUser);
+					dataUserList.add(curUser);
+				}
+				
+				AuthorListFragment fragment = new AuthorListFragment(mContext, mFragmentTitle, mFragmentDescription, dataUserList, BASE_C.CUSTOM_FONT_FILE_NAME);
+				FragmentManager fragmentManager = getSupportFragmentManager();
+				fragmentManager.beginTransaction().replace(R.id.content_frame, fragment).commit();
+
+				// update selected item and title, then close the drawer			
+//				mDrawerList.setItemChecked(position, true);
+				closeDrawer();
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	@Override
+	public void onBackPressed() {
+		if(confirmFinish){
+			finish();
+		} else{
+			Toast.makeText(mContext, "뒤로가기 버튼을 한 번 더 누르시면 종료됩니다", Toast.LENGTH_SHORT).show();
+			confirmFinish = true;
+		}
+	}
 }

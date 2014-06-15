@@ -20,16 +20,16 @@ import android.widget.TextView;
 import arcanelux.library.baseclass.BaseFragment;
 import arcanelux.library.baseclass.BasePagerAdapter;
 
-import com.androidquery.callback.ImageOptions;
 import com.tinicube.base.data.DataAuthorInfo;
 import com.tinicube.base.data.DataUser;
-import com.tinicube.base.data.DataWork;
 import com.tinicube.base.function.BASE_C;
+import com.tinicube.comicbase.TiniCubeComicInitializeTask;
 import com.tinicube.comicbase.data.work.DataChapter;
+import com.tinicube.comicbase.data.work.DataWork;
+import com.tinicube.tinicube.FragmentTouchListener;
 import com.tinicube.tinicube.R;
 import com.tinicube.tinicube.common.C;
 import com.tinicube.tinicube.common.Pref;
-import com.tinicube.tinicube.data.DataCoverImage;
 import com.viewpagerindicator.CirclePageIndicator;
 import com.viewpagerindicator.PageIndicator;
 
@@ -82,6 +82,7 @@ public class MainFragment extends BaseFragment {
 		// MainFragment의 리스트들 세팅
 		initMainList(view, inflater, container);
 		
+		view.setOnTouchListener(new FragmentTouchListener());
 		return view;
 	}
 
@@ -118,7 +119,7 @@ public class MainFragment extends BaseFragment {
 			DataChapter chapter = (DataChapter) v.getTag();
 			String workId = chapter.getWorkId() + "";
 			String chapterId = chapter.getId() + "";
-			new ComicInitializeTask(mContext, "로딩 중...", true, workId, chapterId).execute();
+			new TiniCubeComicInitializeTask(mContext, "로딩 중...", true, workId, chapterId).execute();
 		}
 	}
 	class WorkClickListener implements OnClickListener {
@@ -126,7 +127,7 @@ public class MainFragment extends BaseFragment {
 		public void onClick(View v) {
 			DataWork work = (DataWork) v.getTag();
 			String workId = work.getId() + "";
-			new ComicInitializeTask(mContext, "로딩 중...", true, workId).execute();
+			new TiniCubeComicInitializeTask(mContext, "로딩 중...", true, workId).execute();
 		}
 	}
 	class AuthorClickListener implements OnClickListener {
@@ -224,7 +225,7 @@ public class MainFragment extends BaseFragment {
 			recentItemView.setOnClickListener(mChapterClickListener);
 			llRecentUpdate.addView(recentItemView);
 		}
-
+		
 		// New Work Items 설정
 		llNewWork = (LinearLayout) view.findViewById(R.id.llMainNewWork);
 		for(int i=0; i<mNewWorkList.size(); i++) {

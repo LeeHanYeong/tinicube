@@ -6,6 +6,7 @@ public class C {
 	/**
 	 * NavigationDrawer 관련 변수
 	 */
+	public static final int DRAWERITEM_USERINFO = 9997;
 	public static final int DRAWERGROUP_CATEGORY = 9998;
 	public static final int DRAWERGROUP_SETTING = 9999;
 	

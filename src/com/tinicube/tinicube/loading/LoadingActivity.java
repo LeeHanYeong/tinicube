@@ -14,6 +14,8 @@ import arcanelux.library.activity.AdlibrLoadingActivity;
 
 import com.tinicube.base.function.BASE_C;
 import com.tinicube.base.function.BASE_Pref;
+import com.tinicube.base.login.TiniCubeLoginActivity;
+import com.tinicube.base.login.TiniCubeLoginTask;
 import com.tinicube.tinicube.MainActivity;
 import com.tinicube.tinicube.R;
 import com.tinicube.tinicube.common.C;
@@ -35,9 +37,28 @@ public class LoadingActivity extends AdlibrLoadingActivity {
 		ArcaneluxFunction.setTypeface(mContext, tvLoadingTitle, BASE_C.CUSTOM_FONT_TITILLIUM_2);
 		ArcaneluxFunction.setTypeface(mContext, tvLoadingMessage, BASE_C.CUSTOM_FONT_TITILLIUM_2);
 		
-		new TiniCubeInitializeTask(mContext, "초기화", false).execute();
+		/** 저장된 아이디/비밀번호가 있을 경우 로그인 처리, 세션 새로 받아옴. 이후 초기화 작업 실행 **/
+		Log.d(TAG, "isLogin : " + isLogin());
+		if(isLogin()){
+			Log.d(TAG, "Login info Exist, Execute LoadingLoginTask");
+			String username = BASE_Pref.getUsername(mContext);
+			String password = BASE_Pref.getPassword(mContext);
+			Log.d(TAG, "Saved username : " + username);
+			Log.d(TAG, "Saved password : " + password);
+			new LoadingLoginTask(mContext, "로그인 중...", false, false, username, password).execute();
+		}
+		else {
+			/** 초기화 **/
+			Log.d(TAG, "No Login info, Execute InitializeTask");
+			new TiniCubeInitializeTask(mContext, "초기화", false).execute();
+		}
+		
+		
 	}
 	
+	/**
+	 * VersionCheckTask. 가장 먼저 동작해야 함
+	 */
 	class TiniCubeVersionCheckTask extends VersionCheckTask {
 		public TiniCubeVersionCheckTask(Context context, String title, boolean showDialog) {
 			super(context, title, showDialog);
@@ -49,6 +70,21 @@ public class LoadingActivity extends AdlibrLoadingActivity {
 		@Override
 		protected void onPostExecute(Integer result) {
 			super.onPostExecute(result);
+		}
+	}
+	
+	/**
+	 * TiniCubeLoadingTask를 Override, 끝난 뒤 InitializeTask를 실행
+	 */
+	class LoadingLoginTask extends TiniCubeLoginTask {
+		public LoadingLoginTask(Context context, String title, boolean showDialog, boolean finishActivity, String id, String pw) {
+			super(context, title, showDialog, finishActivity, id, pw);
+		}
+		@Override
+		protected void onPostExecute(Integer result) {
+			super.onPostExecute(result);
+			/** 초기화 **/
+			new TiniCubeInitializeTask(mContext, "초기화", false).execute();
 		}
 	}
 	
@@ -64,6 +100,7 @@ public class LoadingActivity extends AdlibrLoadingActivity {
 		}
 		@Override
 		protected Integer doInBackground(Void... params) {
+			
 			/** MainFragment 표시내용 받아옴 **/
 			strJSONObjectRecentUpdateChapterList = postRequest(C.API_RECENT_UPDATE_CHAPTER_LIST);
 			strJSONObjectNewWorkList = postRequest(C.API_NEWWORK_LIST);
@@ -122,6 +159,10 @@ public class LoadingActivity extends AdlibrLoadingActivity {
 			
 		}
 		
+	}
+	
+	private boolean isLogin(){
+		return BASE_Pref.hasLoginUserInfo(mContext);
 	}
 
 }
