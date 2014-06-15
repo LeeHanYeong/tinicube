@@ -391,7 +391,6 @@ public class MainActivity extends AdlibrActionBarActivity {
 		}
 	}
 
-	
 	/**
 	 * AuthorListFragment를 생성하는 Task
 	 * 		모든 작가 목록은 C.API_ALL_WORK_LIST

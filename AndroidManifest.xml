@@ -32,11 +32,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.tinicube.tinicube.MainActivity" />
-        <activity android:name="com.tinicube.tinicube.comic.ComicChapterListActivity" />
+        <activity android:name="com.tinicube.tinicube.MainActivity"  android:screenOrientation="portrait"/>
+        <activity android:name="com.tinicube.tinicube.comic.ComicChapterListActivity"  android:screenOrientation="portrait"/>
         <activity android:name="com.tinicube.tinicube.comic.ComicChapterViewActivity" />
-        <activity android:name="com.tinicube.base.login.TiniCubeLoginActivity"/>
-        <activity android:name="com.tinicube.comicbase.TiniCubeComicChapterListActivity"/>
+        <activity android:name="com.tinicube.base.login.TiniCubeLoginActivity" android:screenOrientation="portrait" />
+        <activity android:name="com.tinicube.comicbase.TiniCubeComicChapterListActivity" android:screenOrientation="portrait"/>
         <activity android:name="com.tinicube.comicbase.TiniCubeComicChapterViewActivity"/>
         <activity android:name="com.tinicube.comicbase.TiniCubeComicChapterView2Activity"/>
         <activity android:name="com.tinicube.comicbase.author.TiniCubeComicAuthorActivity"/>
